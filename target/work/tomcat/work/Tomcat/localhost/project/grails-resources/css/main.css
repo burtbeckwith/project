@@ -1,0 +1,20 @@
+.container{
+	width: 1000px;
+	margin: auto;
+	background-color: white;
+}
+html{
+	margin: 0;
+	padding: 0;
+	background-color: lavender;
+}
+#line1{
+	border-top: 1px solid blue;
+	border-bottom:1px solid royalblue;
+}
+body{
+	background-color: lavender;
+}
+a , a:hover{
+	text-decoration: none;
+}
