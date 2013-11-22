@@ -9,12 +9,14 @@ html{
 	background-color: lavender;
 }
 #line1{
-	border-top: 1px solid blue;
-	border-bottom:1px solid royalblue;
+	border: 1px solid blue;
 }
 body{
 	background-color: lavender;
 }
 a , a:hover{
 	text-decoration: none;
+}
+fieldset{
+	border: 1px solid lavender;
 }

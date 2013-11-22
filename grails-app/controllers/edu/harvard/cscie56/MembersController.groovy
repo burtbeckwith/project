@@ -2,8 +2,11 @@ package edu.harvard.cscie56
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import grails.plugin.springsecurity.annotation.Secured
+@Secured('ROLE_ADMIN')
 class MembersController {
 
+	def memberService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -18,6 +21,10 @@ class MembersController {
     def create() {
         [membersInstance: new Members(params)]
     }
+
+	def find(){
+	}
+	
 
     def save() {
         def membersInstance = new Members(params)
@@ -99,4 +106,53 @@ class MembersController {
             redirect(action: "show", id: id)
         }
     }
+	
+	def searchPhone(MemberCommand cmd){
+		
+		def memberInstance = memberService.searchByPhone(cmd)
+		if(!memberInstance || memberInstance == null){
+			flash.message = "No record was found for Phone Number: "+cmd.phone
+			redirect(action: 'find')
+			return
+		}
+		
+		redirect (action: 'search' , model: [memberInstance: memberInstance])
+	}
+	def searchEmail(MemberCommand cmd){
+		
+		def memberInstance = memberService.searchByEmail(cmd)
+		if(!memberInstance || memberInstance == null){
+			flash.message = "No record was found for Email Address: "+cmd.email
+			redirect(action: 'find')
+			return
+		}
+		
+		redirect action: 'search' ,memberInstance: memberInstance
+	}
+	def search(){
+		render view: 'search'
+	}
+	def searchName(MemberCommand cmd){
+		
+		def memberInstance = memberService.searchMemberName(cmd)
+		if(!memberInstance || memberInstance == null){
+			flash.message = "No record was found for Full Name: "+cmd.fullname
+			redirect(action: 'find')
+			return
+		}
+		
+		redirect(action: 'search' , memberInstance: memberInstance)
+	}
+}
+class MemberCommand{
+	Long id
+	String fullname
+	String email
+	String phone
+	String gender
+	static constraints = {
+		email email: true
+		phone phoneUS: true
+		email: unique: true
+	}
 }
