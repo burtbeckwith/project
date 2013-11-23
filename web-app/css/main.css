@@ -2,9 +2,19 @@
 #line1{
 	border: 1px solid blue;
 }
-
+.header{
+	background-color: white;
+}
 fieldset{
 	border: 3px solid lavender;
+}
+#appName{
+	float: right;
+}
+.appHeader{
+	color: white;
+	background-color: royalblue;
+	padding: 5px;
 }
 @import url(http://fonts.googleapis.com/css?family=Lato);
 body{

@@ -18,7 +18,11 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div>
+		<div class="appHeader">
+		<span>CSCIE56 Final Project 2013</span>
+		<span id="appName">Church Management System</span>
+		</div>
+		<div class="header">
 		<nav id="cbp-hrmenu" class="cbp-hrmenu">
 					<ul>
 						<li>
@@ -44,16 +48,16 @@
 										<h4>Offering</h4>
 										<ul>
 											<li><%= link(action:'create',controller:'offering') { 'Create Offering' }%></li>
-											<li><%= link(action:'list',controller:'offering') { 'Add member\'s Pledge' }%></li>
 											<li><%= link(action:'list',controller:'offering') { 'List Offering' }%></li>
+											<li><%= link(action: 'search', controller: 'offering'){'Search Offering'} %></li>
 										</ul>
 									</div>
 									<div>
 										<h4>Tithes</h4>
 										<ul>
-											<li><%= link(action:'list',controller:'pledge') { 'List Offering' }%>Create Tithe</a></li>
-											<li><a href="#">Member's Tithe Payment</a></li>
-											<li><a href="#">Search Tithe Payment</a></li>
+											<LI><%= link(action: 'create', controller: 'tithe'){'Member Tithe'} %>
+											<li><%= link(action:'create',controller:'tithePayment') { 'Tithe Payments' }%></li>
+											<li><%= link(action: 'list', controller: 'tithePayment') {'Member\'s Tithe Payment'} %></li>
 										</ul>
 									</div>
 								</div><!-- /cbp-hrsub-inner -->
@@ -70,11 +74,6 @@
 											<li><%= link(action: 'create',controller: 'attendance') {'Add Attendance'}%></li>
 											<li><%= link(action: 'list',controller: 'attendance') {'List Attendance'}%></li>
 											<li><%= link(action: 'search',controller: 'attendance') {'Search Attendance'}%></li>
-										</ul>
-										<h4>Utilities</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
 										</ul>
 									</div>
 									<div>
@@ -96,7 +95,7 @@
 							<div class="cbp-hrsub">
 								<div class="cbp-hrsub-inner"> 
 									<div>
-										<h4>Utilities</h4>
+										<h4>Users</h4>
 										<ul>
 											<li><%= link(action:'index',controller:'register') { 'Add New Users' }%></li>
 											<li><a href="#">Wobbler 3.0</a></li>
@@ -117,7 +116,6 @@
 										</ul>
 									</div>
 									<div>
-										<h4>Learning &amp; Games</h4>
 										<ul>
 											<li><%=link(controller: 'logout'){'Logout'} %></li>
 										</ul>

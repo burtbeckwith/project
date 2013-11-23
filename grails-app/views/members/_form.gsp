@@ -18,19 +18,27 @@
 	<g:textField name="phone" value="${membersInstance?.phone}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'gender', 'error')} ">
+	<label for="gender">
+		<g:message code="members.gender.label" default="Gender" />
+		
+	</label>
+	<g:select name="gender" from="${membersInstance.constraints.gender.inList}" value="${membersInstance?.gender}" valueMessagePrefix="members.gender" noSelection="['': '']"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'createdBy', 'error')} required">
+	<label for="createdBy">
+		<g:message code="members.createdBy.label" default="Created By" />
+		<span class="required-indicator">*</span>
+	</label>
+	<input type="hidden" name="createdBy"  value="<sec:loggedInUserInfo field="id"/>" >
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'fullname', 'error')} ">
 	<label for="fullname">
 		<g:message code="members.fullname.label" default="Fullname" />
 		
 	</label>
 	<g:textField name="fullname" value="${membersInstance?.fullname}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'gender', 'error')} ">
-	<label for="gender">
-		<g:message code="members.gender.label" default="Gender" />
-		
-	</label>
-	<g:textField name="gender" value="${membersInstance?.gender}"/>
 </div>
 

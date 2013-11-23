@@ -1,159 +1,105 @@
 package edu.harvard.cscie56
 
-import org.springframework.dao.DataIntegrityViolationException
 
+
+import static org.springframework.http.HttpStatus.*
+import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 @Secured('ROLE_ADMIN')
+@Transactional(readOnly = true)
 class MembersController {
 
-	def memberService
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index() {
-        redirect(action: "list", params: params)
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond Members.list(params), model:[membersInstanceCount: Members.count()]
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [membersInstanceList: Members.list(params), membersInstanceTotal: Members.count()]
+    def show(Members membersInstance) {
+        respond membersInstance
     }
 
     def create() {
-        [membersInstance: new Members(params)]
+        respond new Members(params)
     }
 
-	def find(){
-		render( view: 'find')
-	}
-	
-
-    def save() {
-        def membersInstance = new Members(params)
-        if (!membersInstance.save(flush: true)) {
-            render(view: "create", model: [membersInstance: membersInstance])
+    @Transactional
+    def save(Members membersInstance) {
+        if (membersInstance == null) {
+            notFound()
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'members.label', default: 'Members'), membersInstance.id])
-        redirect(action: "show", id: membersInstance.id)
-    }
-
-    def show(Long id) {
-        def membersInstance = Members.get(id)
-        if (!membersInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "list")
+        if (membersInstance.hasErrors()) {
+            respond membersInstance.errors, view:'create'
             return
         }
 
-        [membersInstance: membersInstance]
-    }
+        membersInstance.save flush:true
 
-    def edit(Long id) {
-        def membersInstance = Members.get(id)
-        if (!membersInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [membersInstance: membersInstance]
-    }
-
-    def update(Long id, Long version) {
-        def membersInstance = Members.get(id)
-        if (!membersInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (membersInstance.version > version) {
-                membersInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'members.label', default: 'Members')] as Object[],
-                          "Another user has updated this Members while you were editing")
-                render(view: "edit", model: [membersInstance: membersInstance])
-                return
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'membersInstance.label', default: 'Members'), membersInstance.id])
+                redirect membersInstance
             }
+            '*' { respond membersInstance, [status: CREATED] }
         }
+    }
 
-        membersInstance.properties = params
+    def edit(Members membersInstance) {
+        respond membersInstance
+    }
 
-        if (!membersInstance.save(flush: true)) {
-            render(view: "edit", model: [membersInstance: membersInstance])
+    @Transactional
+    def update(Members membersInstance) {
+        if (membersInstance == null) {
+            notFound()
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'members.label', default: 'Members'), membersInstance.id])
-        redirect(action: "show", id: membersInstance.id)
-    }
-
-    def delete(Long id) {
-        def membersInstance = Members.get(id)
-        if (!membersInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "list")
+        if (membersInstance.hasErrors()) {
+            respond membersInstance.errors, view:'edit'
             return
         }
 
-        try {
-            membersInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'members.label', default: 'Members'), id])
-            redirect(action: "show", id: id)
+        membersInstance.save flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Members.label', default: 'Members'), membersInstance.id])
+                redirect membersInstance
+            }
+            '*'{ respond membersInstance, [status: OK] }
         }
     }
-	
-	def searchPhone(MemberCommand cmd){
-		
-		def memberInstance = memberService.searchByPhone(cmd)
-		if(!memberInstance || memberInstance == null){
-			flash.message = "No record was found for Phone Number: "+cmd.phone
-			redirect(action: 'find')
-			return
-		}
-		
-		render (view: 'find' , model: [membersInstance: memberInstance])
-	}
-	def searchEmail(MemberCommand cmd){
-		
-		def memberInstance = memberService.searchByEmail(cmd)
-		if(!memberInstance || memberInstance == null){
-			flash.message = "No record was found for Email Address: "+cmd.email
-			redirect(action: 'find')
-			return
-		}
-		render (view: 'find' , model: [membersInstance: memberInstance])
-		
-	}
-	def search(){
-		
-	}
-	def searchName(MemberCommand cmd){
-		
-		def memberInstance = memberService.searchMemberName(cmd)
-		if(!memberInstance || memberInstance == null){
-			flash.message = "No record was found for Full Name: "+cmd.fullname
-			redirect(action: 'find')
-			return
-		}
-		
-		render (view: 'find' , model: [membersInstance: memberInstance])
-	}
-}
-class MemberCommand{
-	Long id
-	String fullname
-	String email
-	String phone
-	String gender
-	static constraints = {
-		email email: true
-		phone phoneUS: true
-		email: unique: true
-	}
+
+    @Transactional
+    def delete(Members membersInstance) {
+
+        if (membersInstance == null) {
+            notFound()
+            return
+        }
+
+        membersInstance.delete flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Members.label', default: 'Members'), membersInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'membersInstance.label', default: 'Members'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
 }

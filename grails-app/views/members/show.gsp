@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -41,15 +41,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${membersInstance?.fullname}">
-				<li class="fieldcontain">
-					<span id="fullname-label" class="property-label"><g:message code="members.fullname.label" default="Fullname" /></span>
-					
-						<span class="property-value" aria-labelledby="fullname-label"><g:fieldValue bean="${membersInstance}" field="fullname"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${membersInstance?.gender}">
 				<li class="fieldcontain">
 					<span id="gender-label" class="property-label"><g:message code="members.gender.label" default="Gender" /></span>
@@ -59,11 +50,37 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${membersInstance?.createdBy}">
+				<li class="fieldcontain">
+					<span id="createdBy-label" class="property-label"><g:message code="members.createdBy.label" default="Created By" /></span>
+					
+						<span class="property-value" aria-labelledby="createdBy-label"><g:fieldValue bean="${membersInstance}" field="createdBy"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${membersInstance?.dateCreated}">
+				<li class="fieldcontain">
+					<span id="dateCreated-label" class="property-label"><g:message code="members.dateCreated.label" default="Date Created" /></span>
+					
+						<span class="property-value" aria-labelledby="dateCreated-label"><g:fieldValue bean="${membersInstance}" field="dateCreated"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${membersInstance?.fullname}">
+				<li class="fieldcontain">
+					<span id="fullname-label" class="property-label"><g:message code="members.fullname.label" default="Fullname" /></span>
+					
+						<span class="property-value" aria-labelledby="fullname-label"><g:fieldValue bean="${membersInstance}" field="fullname"/></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
-			<g:form>
+			<g:form url="[resource:membersInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${membersInstance?.id}" />
-					<g:link class="edit" action="edit" id="${membersInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${membersInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

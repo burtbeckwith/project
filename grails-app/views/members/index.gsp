@@ -24,17 +24,17 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="address" title="${message(code: 'members.address.label', default: 'Address')}" />
-					
 						<g:sortableColumn property="email" title="${message(code: 'members.email.label', default: 'Email')}" />
 					
 						<g:sortableColumn property="phone" title="${message(code: 'members.phone.label', default: 'Phone')}" />
 					
-						<g:sortableColumn property="address1" title="${message(code: 'members.address1.label', default: 'Address1')}" />
+						<g:sortableColumn property="gender" title="${message(code: 'members.gender.label', default: 'Gender')}" />
 					
-						<g:sortableColumn property="agegroup" title="${message(code: 'members.agegroup.label', default: 'Agegroup')}" />
+						<g:sortableColumn property="createdBy" title="${message(code: 'members.createdBy.label', default: 'Created By')}" />
 					
-						<g:sortableColumn property="city" title="${message(code: 'members.city.label', default: 'City')}" />
+						<g:sortableColumn property="dateCreated" title="${message(code: 'members.dateCreated.label', default: 'Date Created')}" />
+					
+						<g:sortableColumn property="fullname" title="${message(code: 'members.fullname.label', default: 'Fullname')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${membersInstanceList}" status="i" var="membersInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${membersInstance.id}">${fieldValue(bean: membersInstance, field: "address")}</g:link></td>
-					
-						<td>${fieldValue(bean: membersInstance, field: "email")}</td>
+						<td><g:link action="show" id="${membersInstance.id}">${fieldValue(bean: membersInstance, field: "email")}</g:link></td>
 					
 						<td>${fieldValue(bean: membersInstance, field: "phone")}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "address1")}</td>
+						<td>${fieldValue(bean: membersInstance, field: "gender")}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "agegroup")}</td>
+						<td>${fieldValue(bean: membersInstance, field: "createdBy")}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "city")}</td>
+						<td>${fieldValue(bean: membersInstance, field: "dateCreated")}</td>
+					
+						<td>${fieldValue(bean: membersInstance, field: "fullname")}</td>
 					
 					</tr>
 				</g:each>

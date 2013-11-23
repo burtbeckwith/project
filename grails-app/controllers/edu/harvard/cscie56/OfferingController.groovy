@@ -96,7 +96,7 @@ class OfferingController {
     protected void notFound() {
         request.withFormat {
             form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'offeringInstance.label', default: 'Offering'), params.id])
+                flash.message = "No Offering was found. Try again"
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

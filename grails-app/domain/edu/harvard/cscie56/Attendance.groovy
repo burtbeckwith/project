@@ -10,6 +10,7 @@ class Attendance {
 	Long adultsNumber
 	String createdBy
 	String dateCreated
+	
     static constraints = {
     }
 }
