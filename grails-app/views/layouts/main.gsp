@@ -61,18 +61,15 @@
 						</li>
 						
 						<li>
-							<a href="#">Projects</a>
+							<a href="#">Tools</a>
 							<div class="cbp-hrsub">
 								<div class="cbp-hrsub-inner"> 
 									<div>
-										<h4>Learning &amp; Games</h4>
+										<h4>Attendance</h4>
 										<ul>
-											<li><a href="#">Catch the Bullet</a></li>
-											<li><a href="#">Snoopydoo</a></li>
-											<li><a href="#">Fallen Angel</a></li>
-											<li><a href="#">Sui Maker</a></li>
-											<li><a href="#">Wave Master</a></li>
-											<li><a href="#">Golf Pro</a></li>
+											<li><%= link(action: 'create',controller: 'attendance') {'Add Attendance'}%></li>
+											<li><%= link(action: 'list',controller: 'attendance') {'List Attendance'}%></li>
+											<li><%= link(action: 'search',controller: 'attendance') {'Search Attendance'}%></li>
 										</ul>
 										<h4>Utilities</h4>
 										<ul>
