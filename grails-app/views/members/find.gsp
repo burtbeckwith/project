@@ -13,7 +13,6 @@
                      <fieldset>
                      <legend><input type="radio" name="member-search-option" id="by-name" checked value="member_name">Search Member By Name &nbsp;<input type="radio" name="member-search-option" id="by-phone" value="member_phone">By Phone Number: &nbsp;
                      <input type="radio" name="member-search-option" id="by-email" value="member_email">Email Address:&nbsp;
-                     <input type="radio" name="member-search-option" id="by-id" value="member_id">By Tithe ID:&nbsp;
                      </legend>
                      
                      <div id="member_name" class="src">
@@ -34,11 +33,44 @@
                      <input type="submit" value="Search Member" id="btnSearchtitheid">
                      </g:form>
                      </div>
-             
                      </fieldset>
                     
               </div>
-
+				<g:if test="${membersInstance}">
+   
+              <table>
+				<thead>
+					<tr>
+					
+						<g:sortableColumn property="email" title="Full Name" />
+					
+						<g:sortableColumn property="phone" title="Email Address" />
+					
+						<g:sortableColumn property="fullname" title="Phone" />
+					
+						<g:sortableColumn property="gender" title="Gender" />
+						<th>Show Profile</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+				<g:each in="${membersInstance}" status="i" var="memberInstance">
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td>${memberInstance?.fullname?.encodeAsHTML()}</td>
+					
+						<td>${memberInstance?.email?.encodeAsHTML()}</td>
+					
+						<td>${memberInstance?.phone?.encodeAsHTML()}</td>
+					
+						<td>${memberInstance?.gender?.encodeAsHTML()}</td>
+						<td><g:link action="show" id="${memberInstance.id }">Profile</g:link></td>
+						<td><g:link action="edit" id="${memberInstance.id }">Edit</g:link></td>
+					</tr>
+				</g:each>
+				</tbody>
+			</table>
+	</g:if>   
        </div>
 <script>
  

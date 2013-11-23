@@ -36,7 +36,7 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-
+grails.plugin.springsecurity.useSessionFixationPrevention = true
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
 

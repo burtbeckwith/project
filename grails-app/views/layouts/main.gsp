@@ -16,13 +16,6 @@
 		<g:javascript library='jquery' plugin='jquery' />
 		<g:layoutHead/>
 		<r:layoutResources />
-		<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'reset.css',plugin:'spring-security-ui')}"/>
-	<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'spring-security-ui.css',plugin:'spring-security-ui')}"/>
-	<jqui:resources />
-	<link rel="stylesheet" media="screen" href="${resource(dir:'css/smoothness',file:'jquery-ui-1.10.3.custom.css',plugin:'spring-security-ui')}"/>
-	<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'jquery.jgrowl.css',plugin:'spring-security-ui')}"/>
-	<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'jquery.safari-checkbox.css',plugin:'spring-security-ui')}"/>
-	<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'auth.css',plugin:'spring-security-ui')}"/>
 	</head>
 	<body>
 		<div>
@@ -48,18 +41,11 @@
 							<div class="cbp-hrsub">
 								<div class="cbp-hrsub-inner">
 									<div>
-										<h4>Pledge</h4>
+										<h4>Offering</h4>
 										<ul>
-											<li><%= link(action:'create',controller:'pledge') { 'Create Pledge' }%></li>
-											<li><%= link(action:'list',controller:'pledge') { 'List Pledges' }%></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Pledge Payments</h4>
-										<ul>
-											<li><%= link(action:'create',controller:'pledgeImpl') { 'Pledge Payments' }%></li>
-											<li><%= link(action:'list',controller:'pledgeImpl') { 'Add member\'s Pledge' }%></li>
-											<li><%= link(action:'list',controller:'pledgeImpl') { 'List Offering' }%></li>
+											<li><%= link(action:'create',controller:'offering') { 'Create Offering' }%></li>
+											<li><%= link(action:'list',controller:'offering') { 'Add member\'s Pledge' }%></li>
+											<li><%= link(action:'list',controller:'offering') { 'List Offering' }%></li>
 										</ul>
 									</div>
 									<div>

@@ -6,38 +6,41 @@
 		<g:set var="entityName" value="${message(code: 'members.label', default: 'Members')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
-	<body>         
+	<body>  
+	<g:if test="${membersInstance}">
+   
               <table>
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="email" title="${message(code: 'members.email.label', default: 'Email')}" />
+						<g:sortableColumn property="email" title="Full Name" />
 					
-						<g:sortableColumn property="phone" title="${message(code: 'members.phone.label', default: 'Phone')}" />
+						<g:sortableColumn property="phone" title="Email Address" />
 					
-						<g:sortableColumn property="fullname" title="${message(code: 'members.fullname.label', default: 'Fullname')}" />
+						<g:sortableColumn property="fullname" title="Phone" />
 					
-						<g:sortableColumn property="gender" title="${message(code: 'members.gender.label', default: 'Gender')}" />
+						<g:sortableColumn property="gender" title="Gender" />
 						<th>Show Profile</th>
 						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${memberInstance}" status="i" var="membersInstance">
+				<g:each in="${membersInstance}" status="i" var="memberInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td>${fieldValue(bean: membersInstance, field: "email")}</td>
+						<td>${memberInstance?.fullname?.encodeAsHTML()}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "phone")}</td>
+						<td>${memberInstance?.email?.encodeAsHTML()}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "fullname")}</td>
+						<td>${memberInstance?.phone?.encodeAsHTML()}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "gender")}</td>
-						<td><g:link action="show" id="${membersInstance.id }">Profile</g:link></td>
+						<td>${memberInstance?.gender?.encodeAsHTML()}</td>
+						<td><g:link action="show" id="${memberInstance.id }">Profile</g:link></td>
 						<td><g:link action="edit" id="${membersInstance.id }">Edit</g:link></td>
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
+	</g:if>   
 			</body>
 			</html>

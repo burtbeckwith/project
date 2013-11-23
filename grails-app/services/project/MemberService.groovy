@@ -18,7 +18,7 @@ class MemberService {
 	}
 	
 	def searchByEmail(MemberCommand cmd){
-		def memberInstance = Members.findAll {email == cmd.email}
+		def memberInstance = Members.find{email == cmd.email}
 		return memberInstance
 	}
 }

@@ -23,6 +23,7 @@ class MembersController {
     }
 
 	def find(){
+		render( view: 'find')
 	}
 	
 
@@ -116,7 +117,7 @@ class MembersController {
 			return
 		}
 		
-		redirect (action: 'search' , model: [memberInstance: memberInstance])
+		render (view: 'find' , model: [membersInstance: memberInstance])
 	}
 	def searchEmail(MemberCommand cmd){
 		
@@ -126,11 +127,11 @@ class MembersController {
 			redirect(action: 'find')
 			return
 		}
+		render (view: 'find' , model: [membersInstance: memberInstance])
 		
-		redirect action: 'search' ,memberInstance: memberInstance
 	}
 	def search(){
-		render view: 'search'
+		
 	}
 	def searchName(MemberCommand cmd){
 		
@@ -141,7 +142,7 @@ class MembersController {
 			return
 		}
 		
-		redirect(action: 'search' , memberInstance: memberInstance)
+		render (view: 'find' , model: [membersInstance: memberInstance])
 	}
 }
 class MemberCommand{
