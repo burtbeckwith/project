@@ -7,6 +7,7 @@ class Offering {
     Float amountCash
     String offeringDate
     String approvedBy
+	
     static constraints = {
     }
     static mapping = {

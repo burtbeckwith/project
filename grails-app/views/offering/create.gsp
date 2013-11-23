@@ -24,17 +24,14 @@
 		</div>
    <h3> Offering </h3>
    <div id="results">
-   1   <g:formRemote name="offering" url="[action: 'save']" update="results">
+    <g:formRemote name="offering" url="[action: 'saveOffering',controller: 'offering']" update="results">
    	<table>
   			<tr><td>Service Name:</td><td><select name="service">
   				<option value="">Select Service or Event</option>
   				<option value="1">Sunday Worship Service</option>
   				<option value="2">Wednesday Bible Studies</option>
   				<option value="3">Half-Night Service</option>
-  			</select></td></tr>
-  			<tr>
-  				<td>Number of Members:</td>
-  				<td><input type="text" name="numberMembers" size="10"></td>
+  				</select></td>
   			</tr>
   			<tr>
   				<td>Date of Offering:</td>
@@ -42,11 +39,11 @@
   			</tr>
   			  	<tr>
   				<td>Total Cash:</td>
-  				<td><input type="text" name="totalCash" id="totalCash" size="10"></td>
+  				<td><input type="text" name="amountCash" id="totalCash" size="10"></td>
   			</tr>
   			  	<tr>
   				<td>Total Check:</td>
-  				<td><input type="text" id="totalCheck" name="totalCheck" size="10"></td>
+  				<td><input type="text" id="amountCheck" name="amountCheck" size="10"></td>
   			</tr>
   			  	<tr>
   				<td>Approved By:</td>
@@ -55,7 +52,7 @@
   		</table>
 
   		<div>
-  			<input type="submit" class="saveBtn"value="Save and Continue">
+  			<input type="submit" class="saveBtn" value="Save and Continue">
   			<a href="cancel.html" id="cancelBtn">Cancel</a>
   		</div>
    </g:formRemote>

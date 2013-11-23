@@ -10,8 +10,10 @@ class OfferingService {
     def saveOffering(OfferingCommand cmd) {
 		def offeringInstance = new Offering(service: cmd.service,amountCash:cmd.amountCash,amountCheck:cmd.amountCheck,
 									approvedBy:cmd.approvedBy, offeringDate:cmd.offeringDate)
-		offeringInstance.save(flush: true)
-		return offeringInstance
+		def offeringI =offeringInstance.save(flush: true)
+		
+		assert offeringI != null
+		return offeringI
     }
 	
 	def updateOffering(OfferingCommand cmd, Offering offeringInstance){

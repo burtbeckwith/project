@@ -1,59 +1,104 @@
 package edu.harvard.cscie56
-import grails.plugin.springsecurity.annotation.Secured
-@Secured('ROLE_ADMIN')
+
+
+
+import static org.springframework.http.HttpStatus.*
+import grails.transaction.Transactional
+
+@Transactional(readOnly = true)
 class OfferingController {
 
-	def offeringService
-    def index() { }
-	
-	def create(){
-		[offeringInstance : new Offering(params)]
-	}
-	
-	def listOffering(Integer max){
-		params.max = Math.min(max ?:10, 100)
-		[offeringInstanceList:Offering.list(), offeringInstanceTotal: Offering.count()]
-	}
-	
-	def saveOffering(OfferingCommand cmd){
-		def offeringInstance = offeringService.saveOffering
-		if(offeringInstance==null || !offeringInstance){
-			flash.message = " Error occured while"
-			return
-		}
-		render 'Offering has been save successfully...'
-		//redirect(action: 'create')
-	}
-	
-	def updateOffering(OfferingCommand cmd){
-		def offeringInstance = Offering.get(cmd.id).lock()
-		if(offeringInstance== null || !offeringInstance){
-			flash.message = "No Offering was found with ID: "+cmd.id
-			return
-		}
-		def offering = offeringService.updateOffering(cmd, offeringInstance)
-		if(!offering|| offering == null){
-			flash.message=" Error occured will transaction"
-			redirect(action: 'edit', model: [offeringInstance: offeringInstance])
-			return
-		}
-		
-		render 'Offering has been updated Successfully'
-		return
-		
-	}
-}
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-class OfferingCommand{
-	Long id
-	String service
-	Float amountCheck
-	Float amountCash
-	String offeringDate
-	String approvedBy
-	static constraints = {
-	}
-	static mapping = {
-		version false
-	}
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond Offering.list(params), model:[offeringInstanceCount: Offering.count()]
+    }
+
+    def show(Offering offeringInstance) {
+        respond offeringInstance
+    }
+
+    def create() {
+        respond new Offering(params)
+    }
+
+    @Transactional
+    def save(Offering offeringInstance) {
+        if (offeringInstance == null) {
+            notFound()
+            return
+        }
+
+        if (offeringInstance.hasErrors()) {
+            respond offeringInstance.errors, view:'create'
+            return
+        }
+
+        offeringInstance.save flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'offeringInstance.label', default: 'Offering'), offeringInstance.id])
+                redirect offeringInstance
+            }
+            '*' { respond offeringInstance, [status: CREATED] }
+        }
+    }
+
+    def edit(Offering offeringInstance) {
+        respond offeringInstance
+    }
+
+    @Transactional
+    def update(Offering offeringInstance) {
+        if (offeringInstance == null) {
+            notFound()
+            return
+        }
+
+        if (offeringInstance.hasErrors()) {
+            respond offeringInstance.errors, view:'edit'
+            return
+        }
+
+        offeringInstance.save flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Offering.label', default: 'Offering'), offeringInstance.id])
+                redirect offeringInstance
+            }
+            '*'{ respond offeringInstance, [status: OK] }
+        }
+    }
+
+    @Transactional
+    def delete(Offering offeringInstance) {
+
+        if (offeringInstance == null) {
+            notFound()
+            return
+        }
+
+        offeringInstance.delete flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Offering.label', default: 'Offering'), offeringInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'offeringInstance.label', default: 'Offering'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
 }
