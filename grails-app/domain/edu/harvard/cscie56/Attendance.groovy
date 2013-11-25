@@ -4,12 +4,12 @@ class Attendance {
 
 	String service
 	String serviceDate
-	Long memberNumber
-	Long guestNumber
-	Long childrenNumber
-	Long adultsNumber
+	String memberNumber
+	String guestNumber
+	String childrenNumber
+	String adultsNumber
 	String createdBy
-	String dateCreated
+	String created
 	
     static constraints = {
     }

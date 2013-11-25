@@ -21,4 +21,9 @@ class MemberService {
 		def memberInstance = Members.find{email == cmd.email}
 		return memberInstance
 	}
+	def save(Members membersInstance){
+	def memberInstance = new Members(fullname: membersInstance.fullname, email: membersInstance.email, phone: membersInstance.phone, 
+										gender: membersInstance.gender)
+		memberInstance.save(flush: true)
+	}
 }

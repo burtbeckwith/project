@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -41,20 +41,20 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${attendanceInstance?.created}">
+				<li class="fieldcontain">
+					<span id="created-label" class="property-label"><g:message code="attendance.created.label" default="Created" /></span>
+					
+						<span class="property-value" aria-labelledby="created-label"><g:fieldValue bean="${attendanceInstance}" field="created"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${attendanceInstance?.createdBy}">
 				<li class="fieldcontain">
 					<span id="createdBy-label" class="property-label"><g:message code="attendance.createdBy.label" default="Created By" /></span>
 					
 						<span class="property-value" aria-labelledby="createdBy-label"><g:fieldValue bean="${attendanceInstance}" field="createdBy"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${attendanceInstance?.dateCreated}">
-				<li class="fieldcontain">
-					<span id="dateCreated-label" class="property-label"><g:message code="attendance.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:fieldValue bean="${attendanceInstance}" field="dateCreated"/></span>
 					
 				</li>
 				</g:if>
@@ -96,10 +96,9 @@
 				</g:if>
 			
 			</ol>
-			<g:form>
+			<g:form url="[resource:attendanceInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${attendanceInstance?.id}" />
-					<g:link class="edit" action="edit" id="${attendanceInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${attendanceInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

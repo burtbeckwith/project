@@ -20,7 +20,11 @@
 	<body>
 		<div class="appHeader">
 		<span>CSCIE56 Final Project 2013</span>
-		<span id="appName">Church Management System</span>
+		<span id="appName">
+		<sec:ifLoggedIn> 
+		Logged in as: <sec:loggedInUserInfo field="username"/>
+		&nbsp;&nbsp; |&nbsp;&nbsp; </sec:ifLoggedIn>
+		Church Management System</span>
 		</div>
 		<div class="header">
 		<nav id="cbp-hrmenu" class="cbp-hrmenu">
@@ -33,7 +37,7 @@
 										<h4>Members</h4>
 										<ul>
 											<li><%= link(action:'create',controller:'members') { 'New Members' }%></li>
-											<li><%= link(action:'list',controller:'members') { 'List Members' }%></li>
+											<li><%= link(action:'index',controller:'members') { 'List Members' }%></li>
 											<li><%= link(action:'find',controller:'members') { 'Search for Member' }%></li>
 										</ul>
 									</div>
@@ -98,8 +102,7 @@
 										<h4>Users</h4>
 										<ul>
 											<li><%= link(action:'index',controller:'register') { 'Add New Users' }%></li>
-											<li><a href="#">Wobbler 3.0</a></li>
-											<li><a href="#">Coolkid</a></li>
+											<li><%= link(action: 'resetPassword',controller: 'register'){'Reset Password'} %>
 										</ul>
 										<h4>Education</h4>
 										<ul>
@@ -130,7 +133,7 @@
 		<div class="container">
 		<g:layoutBody/>
 		</div>
-		<div class="footer" role="contentinfo"></div>
+		
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
 		<g:javascript src="cbpHorizontalMenu.js"/>
@@ -144,4 +147,5 @@
 <g:javascript src='jquery/jquery.checkbox.js' plugin='spring-security-ui'/>
 <g:javascript src='spring-security-ui.js' plugin='spring-security-ui'/>
 	</body>
+	<div class="footer">Copyright &copy; 2013. All Rights Reserved for Hubert Kyeremateng Boateng</div>
 </html>

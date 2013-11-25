@@ -2,20 +2,28 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'adultsNumber', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'adultsNumber', 'error')} ">
 	<label for="adultsNumber">
 		<g:message code="attendance.adultsNumber.label" default="Adults Number" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:field name="adultsNumber" type="number" value="${attendanceInstance.adultsNumber}" required=""/>
+	<g:textField name="adultsNumber" value="${attendanceInstance?.adultsNumber}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'childrenNumber', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'childrenNumber', 'error')} ">
 	<label for="childrenNumber">
 		<g:message code="attendance.childrenNumber.label" default="Children Number" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:field name="childrenNumber" type="number" value="${attendanceInstance.childrenNumber}" required=""/>
+	<g:textField name="childrenNumber" value="${attendanceInstance?.childrenNumber}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'created', 'error')} ">
+	<label for="created">
+		<g:message code="attendance.created.label" default="Created" />
+		
+	</label>
+	<g:textField name="created" value="${attendanceInstance?.created}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'createdBy', 'error')} ">
@@ -26,20 +34,20 @@
 	<g:textField name="createdBy" value="${attendanceInstance?.createdBy}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'guestNumber', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'guestNumber', 'error')} ">
 	<label for="guestNumber">
 		<g:message code="attendance.guestNumber.label" default="Guest Number" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:field name="guestNumber" type="number" value="${attendanceInstance.guestNumber}" required=""/>
+	<g:textField name="guestNumber" value="${attendanceInstance?.guestNumber}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'memberNumber', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'memberNumber', 'error')} ">
 	<label for="memberNumber">
 		<g:message code="attendance.memberNumber.label" default="Member Number" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:field name="memberNumber" type="number" value="${attendanceInstance.memberNumber}" required=""/>
+	<g:textField name="memberNumber" value="${attendanceInstance?.memberNumber}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'service', 'error')} ">

@@ -5,9 +5,7 @@
 </head>
 <body>
 <div class="container">
-	<g:if test="${flash.message }">
-	<div class="message">${flash.message }</div>
-	</g:if>
+
        <div id="search-member-container">
       				
                      <fieldset>
@@ -36,8 +34,16 @@
                      </fieldset>
                     
               </div>
+              <p>
+              	<g:if test="${flash.message }">
+              	<h2>Search Results</h2>
+   				<hr id="line1">
+				<div class="message">${flash.message }</div>
+				</g:if>
+				</p>
 				<g:if test="${membersInstance}">
-   
+   				<h2>Search Results</h2>
+   				<hr id="line1">
               <table>
 				<thead>
 					<tr>

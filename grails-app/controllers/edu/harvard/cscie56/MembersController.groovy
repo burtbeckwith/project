@@ -3,12 +3,14 @@ package edu.harvard.cscie56
 
 
 import static org.springframework.http.HttpStatus.*
+import edu.harvard.cscie56.auth.User
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 @Secured('ROLE_ADMIN')
 @Transactional(readOnly = true)
 class MembersController {
 
+	def memberService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -24,6 +26,9 @@ class MembersController {
         respond new Members(params)
     }
 
+	def find(){
+		render view: 'find'
+	}
     @Transactional
     def save(Members membersInstance) {
         if (membersInstance == null) {
@@ -36,17 +41,55 @@ class MembersController {
             return
         }
 
-        membersInstance.save flush:true
+		membersInstance.save(flush: true)
+
 
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'membersInstance.label', default: 'Members'), membersInstance.id])
-                redirect membersInstance
+                println membersInstance
+				redirect membersInstance
             }
             '*' { respond membersInstance, [status: CREATED] }
         }
     }
-
+		def searchPhone(MemberCommand cmd){
+		
+			def memberInstance = memberService.searchByPhone(cmd)
+				if(!memberInstance || memberInstance == null){
+					flash.message = "No record was found for Phone Number: "+cmd.phone
+					redirect(action: 'find')
+					return
+				}
+		
+				render (view: 'find', model:[ membersInstance: memberInstance])
+			}
+			def searchEmail(MemberCommand cmd){
+		
+				def memberInstance = memberService.searchByEmail(cmd)
+				if(!memberInstance || memberInstance == null){
+					flash.message = "No record was found for Email Address: "+cmd.email
+					redirect(action: 'find')
+					return
+				}
+		
+				render (view: 'find', model:[ membersInstance: memberInstance])
+			}
+			def search(){
+				render view: 'search'
+			}
+			def searchName(MemberCommand cmd){
+		
+				def memberInstance = memberService.searchMemberName(cmd)
+				if(!memberInstance || memberInstance == null){
+					flash.message = "No record was found for Full Name: "+cmd.fullname
+					redirect(action: 'find')
+					return
+				}
+		
+				render (view: 'find', model:[ membersInstance: memberInstance])
+			}
+		
     def edit(Members membersInstance) {
         respond membersInstance
     }
@@ -102,4 +145,19 @@ class MembersController {
             '*'{ render status: NOT_FOUND }
         }
     }
+}
+class MemberCommand{
+	String fullname
+	String email
+	String phone
+	String gender
+	String dateCreated
+	String createdBy
+	
+	static constraints = {
+		email email: true
+		phone phoneUS: true
+		email: unique: true
+		gender inList: ['male','female']
+	}
 }

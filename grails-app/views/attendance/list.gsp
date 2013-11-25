@@ -30,7 +30,7 @@
 					
 						<g:sortableColumn property="createdBy" title="${message(code: 'attendance.createdBy.label', default: 'Created By')}" />
 					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'attendance.dateCreated.label', default: 'Date Created')}" />
+						<g:sortableColumn property="created" title="${message(code: 'attendance.dateCreated.label', default: 'Date Created')}" />
 					
 						<g:sortableColumn property="guestNumber" title="${message(code: 'attendance.guestNumber.label', default: 'Guest Number')}" />
 					
@@ -48,7 +48,7 @@
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "createdBy")}</td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "dateCreated")}</td>
+						<td>${fieldValue(bean: attendanceInstance, field: "created")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "guestNumber")}</td>
 					

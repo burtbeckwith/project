@@ -50,24 +50,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${membersInstance?.createdBy}">
-				<li class="fieldcontain">
-					<span id="createdBy-label" class="property-label"><g:message code="members.createdBy.label" default="Created By" /></span>
-					
-						<span class="property-value" aria-labelledby="createdBy-label"><g:fieldValue bean="${membersInstance}" field="createdBy"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${membersInstance?.dateCreated}">
-				<li class="fieldcontain">
-					<span id="dateCreated-label" class="property-label"><g:message code="members.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:fieldValue bean="${membersInstance}" field="dateCreated"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${membersInstance?.fullname}">
 				<li class="fieldcontain">
 					<span id="fullname-label" class="property-label"><g:message code="members.fullname.label" default="Fullname" /></span>

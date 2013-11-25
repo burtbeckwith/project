@@ -8,10 +8,8 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-members" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -24,17 +22,15 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="email" title="${message(code: 'members.email.label', default: 'Email')}" />
+						<g:sortableColumn property="fullname" title="${message(code: 'members.email.label', default: 'Full Name')}" />
 					
 						<g:sortableColumn property="phone" title="${message(code: 'members.phone.label', default: 'Phone')}" />
 					
 						<g:sortableColumn property="gender" title="${message(code: 'members.gender.label', default: 'Gender')}" />
 					
-						<g:sortableColumn property="createdBy" title="${message(code: 'members.createdBy.label', default: 'Created By')}" />
-					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'members.dateCreated.label', default: 'Date Created')}" />
-					
-						<g:sortableColumn property="fullname" title="${message(code: 'members.fullname.label', default: 'Fullname')}" />
+						<g:sortableColumn property="email" title="${message(code: 'members.fullname.label', default: 'Email Address')}" />
+						<th>Member's Profile</th>
+						<th>Edit Member</th>
 					
 					</tr>
 				</thead>
@@ -42,18 +38,15 @@
 				<g:each in="${membersInstanceList}" status="i" var="membersInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${membersInstance.id}">${fieldValue(bean: membersInstance, field: "email")}</g:link></td>
+						<td>${fieldValue(bean: membersInstance, field: "fullname")}</td>
 					
 						<td>${fieldValue(bean: membersInstance, field: "phone")}</td>
 					
 						<td>${fieldValue(bean: membersInstance, field: "gender")}</td>
 					
-						<td>${fieldValue(bean: membersInstance, field: "createdBy")}</td>
-					
-						<td>${fieldValue(bean: membersInstance, field: "dateCreated")}</td>
-					
-						<td>${fieldValue(bean: membersInstance, field: "fullname")}</td>
-					
+						<td>${fieldValue(bean: membersInstance, field: "email")}</td>
+						<td><g:link action="show" id="${membersInstance.id}">Show Profile </g:link></td>
+						<td><g:link action="edit" id="${membersInstance.id}">Edit </g:link></td>
 					</tr>
 				</g:each>
 				</tbody>

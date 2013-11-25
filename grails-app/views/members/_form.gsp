@@ -23,15 +23,7 @@
 		<g:message code="members.gender.label" default="Gender" />
 		
 	</label>
-	<g:select name="gender" from="${membersInstance.constraints.gender.inList}" value="${membersInstance?.gender}" valueMessagePrefix="members.gender" noSelection="['': '']"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'createdBy', 'error')} required">
-	<label for="createdBy">
-		<g:message code="members.createdBy.label" default="Created By" />
-		<span class="required-indicator">*</span>
-	</label>
-	<input type="hidden" name="createdBy"  value="<sec:loggedInUserInfo field="id"/>" >
+	<g:select name="gender" from="${membersInstance.constraints.gender.inList}" value="${membersInstance?.gender}" valueMessagePrefix="members.gender" noSelection="['': 'Select Gender']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: membersInstance, field: 'fullname', 'error')} ">

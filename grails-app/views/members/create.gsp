@@ -28,6 +28,8 @@
 			<g:form url="[resource:membersInstance, action:'save']" >
 				<fieldset class="form">
 					<g:render template="form"/>
+							<input type="hidden" name="createdBy" value="<sec:loggedInUserInfo field="id"/>">
+							<input type="hidden" name="created" value="<g:formatDate format="MM/dd/yyyy" date="${new Date()}"/>">
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

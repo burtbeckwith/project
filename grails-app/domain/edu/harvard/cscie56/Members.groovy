@@ -1,18 +1,18 @@
 package edu.harvard.cscie56
 
+import edu.harvard.cscie56.auth.User
+
 class Members {
 
 	String fullname
 	String email
 	String phone
 	String gender
-	String dateCreated
 	String createdBy
-	
+	String created
     static constraints = {
 		email email: true
 		phone phoneUS: true
-		email: unique: true
 		gender inList: ['male','female']
     }
 }

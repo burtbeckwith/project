@@ -1,9 +1,12 @@
 package edu.harvard.cscie56.auth
 
+import edu.harvard.cscie56.Members
+
 class User {
 
 	transient springSecurityService
 
+	Members member
 	String username
 	String password
 	boolean enabled = true
