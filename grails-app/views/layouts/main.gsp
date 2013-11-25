@@ -80,17 +80,7 @@
 											<li><%= link(action: 'search',controller: 'attendance') {'Search Attendance'}%></li>
 										</ul>
 									</div>
-									<div>
-										<h4>Entertainment</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
-											<li><a href="#">Green Tree Pro</a></li>
-											<li><a href="#">Holy Cannoli</a></li>
-											<li><a href="#">Wobbler 3.0</a></li>
-											<li><a href="#">Coolkid</a></li>
-										</ul>
-									</div>
+									
 								</div><!-- /cbp-hrsub-inner -->
 							</div><!-- /cbp-hrsub -->
 						</li>
@@ -101,26 +91,19 @@
 									<div>
 										<h4>Users</h4>
 										<ul>
+										<sec:ifLoggedIn>
 											<li><%= link(action:'index',controller:'register') { 'Add New Users' }%></li>
-											<li><%= link(action: 'resetPassword',controller: 'register'){'Reset Password'} %>
+											<li><%= link(action: 'resetPassword',controller: 'register'){'Reset Password'} %></li>
+											</sec:ifLoggedIn>
 										</ul>
-										<h4>Education</h4>
-										<ul>
-											<li><a href="#">Learn Thai</a></li>
-											<li><a href="#">Math Genius</a></li>
-											<li><a href="#">Chemokid</a></li>
-										</ul>
+										
 									</div>
-									<div>
-										<h4>Professionals</h4>
-										<ul>
-											<li><a href="#">Success 1.0</a></li>
-											<li><a href="#">Moneymaker</a></li>
-										</ul>
-									</div>
+									
 									<div>
 										<ul>
+										<sec:ifLoggedIn>
 											<li><%=link(controller: 'logout'){'Logout'} %></li>
+										</sec:ifLoggedIn>
 										</ul>
 									</div>
 								</div><!-- /cbp-hrsub-inner -->

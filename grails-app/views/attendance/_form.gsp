@@ -1,5 +1,8 @@
 <%@ page import="edu.harvard.cscie56.Attendance" %>
 
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'classic.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'classic.date.css')}" type="text/css">
+<div class="fieldcontain ${hasErrors(bean: offeringInstance, field: 'service', 'error')} ">
 
 
 <div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'adultsNumber', 'error')} ">
@@ -55,7 +58,7 @@
 		<g:message code="attendance.service.label" default="Service" />
 		
 	</label>
-	<g:textField name="service" value="${attendanceInstance?.service}"/>
+	<g:select name="service" noSelection="['':'Select Church Service']" from="${['Sunday Worship Service','Mid-Week Bible Studies','Friday Half-Night','Special Service'] }" value="${attendanceInstance?.service }"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: attendanceInstance, field: 'serviceDate', 'error')} ">
@@ -63,6 +66,14 @@
 		<g:message code="attendance.serviceDate.label" default="Service Date" />
 		
 	</label>
-	<g:textField name="serviceDate" value="${attendanceInstance?.serviceDate}"/>
+	<g:textField id="serviceDate"name="serviceDate" value="${attendanceInstance?.serviceDate}"/>
 </div>
+       		<g:javascript src="picker.js"/>
+		<g:javascript src="picker.date.js"/>
+		<g:javascript src="legacy.js"/>
+        <script type="text/javascript">
+           $('#serviceDate').pickadate({
+                format: 'mm/dd/yyyy'
+           });
 
+         </script>
