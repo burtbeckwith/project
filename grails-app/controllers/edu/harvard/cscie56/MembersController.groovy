@@ -37,18 +37,18 @@ class MembersController {
         }
 
         if (membersInstance.hasErrors()) {
-            respond membersInstance.errors, view:'create'
+            respond cmd.errors, view:'create'
             return
         }
 
-		membersInstance.save(flush: true)
-
+		//def membersInstance = memberService.save(cmd)
+		membersInstance.save flush:true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'membersInstance.label', default: 'Members'), membersInstance.id])
-                println membersInstance
-				redirect membersInstance
+                flash.message = 'New Member has been created successfully'
+                
+				redirect action: 'create'
             }
             '*' { respond membersInstance, [status: CREATED] }
         }
@@ -147,11 +147,12 @@ class MembersController {
     }
 }
 class MemberCommand{
+	Long id
 	String fullname
 	String email
 	String phone
 	String gender
-	String dateCreated
+	String created
 	String createdBy
 	
 	static constraints = {
