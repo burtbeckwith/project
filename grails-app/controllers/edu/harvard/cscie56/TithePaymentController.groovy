@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured('ROLE_ADMIN')
 class TithePaymentController {
 
+	def tithePaymentService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -27,11 +28,20 @@ class TithePaymentController {
             render(view: "create", model: [tithePaymentInstance: tithePaymentInstance])
             return
         }
-
+		println tithePaymentInstance
         flash.message = message(code: 'default.created.message', args: [message(code: 'tithePayment.label', default: 'TithePayment'), tithePaymentInstance.id])
         redirect(action: "show", id: tithePaymentInstance.id)
     }
 
+	def searchTithe(Long titheID, String titheYear){
+		def tithePayments = tithePaymentService.tithePayment(titheID, titheYear)
+		println tithePayments + " fg" 
+		
+	}
+	
+	def searchPayments(){
+		render view: 'searchTithePayment'
+	}
     def show(Long id) {
         def tithePaymentInstance = TithePayment.get(id)
         if (!tithePaymentInstance) {
@@ -51,14 +61,15 @@ class TithePaymentController {
 	}
 
 	def searchTitheID(Long titheID){
+		
 		def titheInstance = getTitheId(titheID)
+		
 		if(!titheInstance || titheInstance == null){
 			flash.message =" No Tithe ID was found..Try again"
 			render(view: "create")
 			return
 		}
-		//println titheInstnace
-		render(view: "create", model: [titheInstance: titheInstance, titheInstanceID: titheID])
+		render view: 'create',  model: [titheInstance: titheInstance,titheInstanceID: titheID]
 	}
     def edit(Long id) {
         def tithePaymentInstance = TithePayment.get(id)
@@ -118,4 +129,19 @@ class TithePaymentController {
             redirect(action: "show", id: id)
         }
     }
+}
+class TithePaymentCommand{
+	Long id
+	Tithe tithe
+	Float amount
+	String datePaid
+	String titheMonth
+	String titheYear
+	String acceptedBy
+	static constraints = {
+	}
+	
+	static mapping = {
+		version false
+	}
 }

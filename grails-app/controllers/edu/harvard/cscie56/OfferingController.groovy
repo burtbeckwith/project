@@ -24,6 +24,9 @@ class OfferingController {
         respond new Offering(params)
     }
 
+	def search(){
+		render view: 'searchOffering'
+	}
     @Transactional
     def save(Offering offeringInstance) {
         if (offeringInstance == null) {

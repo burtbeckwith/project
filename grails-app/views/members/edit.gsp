@@ -27,15 +27,16 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:membersInstance, action:'update']" method="PUT" >
+			<section class="lampstand-wrapper">
+			<g:form url="[resource:membersInstance, action:'update']" method="PUT" class="lampstand-form" >
 				<g:hiddenField name="version" value="${membersInstance?.version}" />
-				<fieldset class="form">
+				
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
+							<input type="hidden" name="modifiedOn" value="<g:formatDate format="MM/dd/yyyy" date="${new Date()}"/>">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-				</fieldset>
+				
 			</g:form>
+		</section>
 		</div>
 	</body>
 </html>

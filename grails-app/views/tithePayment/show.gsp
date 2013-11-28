@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${tithePaymentInstance?.tithe}">
+				<g:if test="${tithePaymentInstance?.titheID}">
 				<li class="fieldcontain">
 					<span id="tithe-label" class="property-label"><g:message code="tithePayment.tithe.label" default="Tithe" /></span>
 					
-						<span class="property-value" aria-labelledby="tithe-label"><g:link controller="tithe" action="show" id="${tithePaymentInstance?.tithe?.id}">${tithePaymentInstance?.tithe?.encodeAsHTML()}</g:link></span>
+						<span><g:link controller="tithe" action="show" id="${tithePaymentInstance?.titheID}">${tithePaymentInstance?.titheID?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

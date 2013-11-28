@@ -48,7 +48,7 @@
 					
 						<td>${fieldValue(bean: tithePaymentInstance, field: "datePaid")}</td>
 					
-						<td>${fieldValue(bean: tithePaymentInstance, field: "tithe")}</td>
+						<td>${fieldValue(bean: tithePaymentInstance, field: "titheID")}</td>
 					
 						<td>${fieldValue(bean: tithePaymentInstance, field: "titheMonth")}</td>
 					

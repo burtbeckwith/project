@@ -16,7 +16,6 @@
 	width: 90%;
 	max-width: 70em;
 	margin: 0 auto;
-	padding: 0 1.875em;
 }
 
 .cbp-hrmenu > ul > li {
@@ -26,7 +25,7 @@
 .cbp-hrmenu > ul > li > a {
 	font-weight: 700;
 	padding: 1em 2em;
-	color: #999;
+	color: royalblue;
 	display: inline-block;
 }
 
@@ -44,20 +43,19 @@
 .cbp-hrmenu .cbp-hrsub {
 	display: none;
 	position: absolute;
-	background: #47a3da;
+	background-color: #47a3da;
 	width: 100%;
 	left: 0;
 }
 
 .cbp-hropen .cbp-hrsub {
 	display: block;
-	padding-bottom: 3em;
+	padding-bottom: 1em;
 }
 
 .cbp-hrmenu .cbp-hrsub-inner > div {
 	width: 33%;
 	float: left;
-	padding: 0 1em 0;
 }
 
 .cbp-hrmenu .cbp-hrsub-inner:before,
@@ -76,7 +74,7 @@
 
 .cbp-hrsub h4 {
 	color: #afdefa;
-	padding: 2em 0 0.6em;
+	padding: 0 0 0.1em;
 	margin: 0;
 	font-size: 160%;
 	font-weight: 300;

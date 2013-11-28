@@ -24,12 +24,7 @@
 			<ol class="property-list tithe">
 			
 				<g:if test="${titheInstance?.member}">
-				<li class="fieldcontain">
-					<span id="member-label" class="property-label"><g:message code="tithe.member.label" default="Member" /></span>
-					
-						<span class="property-value" aria-labelledby="member-label"><g:link controller="members" action="show" id="${titheInstance?.member?.id}">${titheInstance?.member?.fullname?.encodeAsHTML()}</g:link></span>
-					
-				</li>
+Good
 				</g:if>
 			
 				<g:if test="${titheInstance?.titheID}">

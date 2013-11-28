@@ -34,7 +34,7 @@
 				<g:each in="${titheInstanceList}" status="i" var="titheInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${titheInstance.id}">${fieldValue(bean: titheInstance, field: "member.fullname")}</g:link></td>
+						<td><g:link action="show" id="${titheInstance.id}">${fieldValue(bean: titheInstance, field: "member")}</g:link></td>
 					
 						<td>${fieldValue(bean: titheInstance, field: "titheID")}</td>
 					

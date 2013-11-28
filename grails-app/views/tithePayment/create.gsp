@@ -7,10 +7,8 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-tithePayment" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
+	<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -27,17 +25,17 @@
 			</ul>
 			</g:hasErrors>
 			<div>
-			<g:formRemote name="idSearch" url="[action:'searchTitheID']" update="titheMember">
+			<g:form name="idSearch" action="searchTitheID" >
 				<label>Tithe ID:</label><input type="text" name="titheID" autocomplete="off">
 				<g:submitButton name="search" value="Search Tithe"/>
-			</g:formRemote>
+			</g:form>
 			</div>
 			<g:form action="save" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="create" class="save" value="Save Tithe Payment" />
 				</fieldset>
 			</g:form>
 		</div>

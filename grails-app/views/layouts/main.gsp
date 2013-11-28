@@ -34,7 +34,6 @@
 							<div class="cbp-hrsub">
 								<div class="cbp-hrsub-inner"> 
 									<div>
-										<h4>Members</h4>
 										<ul>
 											<li><%= link(action:'create',controller:'members') { 'New Members' }%></li>
 											<li><%= link(action:'index',controller:'members') { 'List Members' }%></li>
@@ -61,7 +60,7 @@
 										<ul>
 											<LI><%= link(action: 'create', controller: 'tithe'){'Member Tithe'} %>
 											<li><%= link(action:'create',controller:'tithePayment') { 'Tithe Payments' }%></li>
-											<li><%= link(action: 'list', controller: 'tithePayment') {'Member\'s Tithe Payment'} %></li>
+											<li><%= link(action: 'searchPayments', controller: 'tithePayment') {'Search Payment'} %></li>
 										</ul>
 									</div>
 								</div><!-- /cbp-hrsub-inner -->
@@ -114,6 +113,7 @@
 				</div>
 				
 		<div class="container">
+		<div class="gap_1"></div>
 		<g:layoutBody/>
 		</div>
 		
