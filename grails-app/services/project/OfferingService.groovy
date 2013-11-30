@@ -21,4 +21,8 @@ class OfferingService {
 		cmd.save(flush:true)
 		
 	}
+	def searchOffering(String offering){
+		def offeringInstance = Offering.findByOfferingDate(offering)
+		return offeringInstance
+	}
 }

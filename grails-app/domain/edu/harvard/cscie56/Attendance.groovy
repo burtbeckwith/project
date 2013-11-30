@@ -13,4 +13,5 @@ class Attendance {
 	
     static constraints = {
     }
+	
 }

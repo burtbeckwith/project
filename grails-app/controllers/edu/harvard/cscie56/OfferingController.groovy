@@ -9,6 +9,7 @@ import grails.plugin.springsecurity.annotation.Secured
 @Transactional(readOnly = true)
 class OfferingController {
 
+	def offeringService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -25,7 +26,7 @@ class OfferingController {
     }
 
 	def search(){
-		render view: 'searchOffering'
+		render view: 'searchOffering' 
 	}
     @Transactional
     def save(Offering offeringInstance) {
@@ -44,7 +45,7 @@ class OfferingController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'offeringInstance.label', default: 'Offering'), offeringInstance.id])
-                redirect offeringInstance
+                redirect action: 'index', method: 'GET'
             }
             '*' { respond offeringInstance, [status: CREATED] }
         }
@@ -71,11 +72,26 @@ class OfferingController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Offering.label', default: 'Offering'), offeringInstance.id])
-                redirect offeringInstance
+                redirect action: 'index', method: 'GET'
             }
             '*'{ respond offeringInstance, [status: OK] }
         }
     }
+	@Transactional
+	def searchOffering(String offeringDate){
+		if(offeringDate == null){
+			notFound()
+			return
+		}
+		def offeringInstance = offeringService.searchOffering(offeringDate)
+		if (!offeringInstance || offeringInstance == null){
+			flash.message = " No Offering was found. Try again."
+			return
+		}
+		log.info "Offering was found successfully for date: $offeringDate"
+		render view: 'searchOffering', model : [offeringInstanceList: offeringInstance]
+		
+	}
 
     @Transactional
     def delete(Offering offeringInstance) {
@@ -107,7 +123,7 @@ class OfferingController {
     }
 }
 class OfferingCommand{
-	
+	Long id
 	String service
 	Float amountCheck
 	Float amountCash

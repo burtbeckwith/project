@@ -6,15 +6,14 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-attendance" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
+	<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="create-attendance" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,14 +24,16 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:attendanceInstance, action:'save']" >
-				<fieldset class="form">
+				<section class="lampstand-wrapper">
+			<g:form url="[resource:attendanceInstance, action:'save']" class="lampstand-form" >
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
+	<input type="hidden" name="created" value="<g:formatDate format="MM/dd/yyyy" date="${new Date()}"/>">
+		
+		<input type="hidden" name="createdBy"value="<sec:loggedInUserInfo field="username"/>" >
+					  <input type="submit" name="create" value="Save" />
+				
 			</g:form>
+			</section>
 		</div>
 	</body>
 </html>

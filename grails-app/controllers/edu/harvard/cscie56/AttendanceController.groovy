@@ -1,104 +1,105 @@
 package edu.harvard.cscie56
 
-import org.springframework.dao.DataIntegrityViolationException
 
+
+import static org.springframework.http.HttpStatus.*
+import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 @Secured('ROLE_ADMIN')
+@Transactional(readOnly = true)
 class AttendanceController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index() {
-        redirect(action: "list", params: params)
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond Attendance.list(params), model:[attendanceInstanceCount: Attendance.count()]
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [attendanceInstanceList: Attendance.list(params), attendanceInstanceTotal: Attendance.count()]
+    def show(Attendance attendanceInstance) {
+        respond attendanceInstance
     }
 
     def create() {
-        [attendanceInstance: new Attendance(params)]
+        respond new Attendance(params)
     }
 
-    def save() {
-        def attendanceInstance = new Attendance(params)
-        if (!attendanceInstance.save(flush: true)) {
-            render(view: "create", model: [attendanceInstance: attendanceInstance])
+    @Transactional
+    def save(Attendance attendanceInstance) {
+        if (attendanceInstance == null) {
+            notFound()
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'attendance.label', default: 'Attendance'), attendanceInstance.id])
-        redirect(action: "show", id: attendanceInstance.id)
-    }
-
-    def show(Long id) {
-        def attendanceInstance = Attendance.get(id)
-        if (!attendanceInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "list")
+        if (attendanceInstance.hasErrors()) {
+            respond attendanceInstance.errors, view:'create'
             return
         }
 
-        [attendanceInstance: attendanceInstance]
-    }
+        attendanceInstance.save flush:true
 
-    def edit(Long id) {
-        def attendanceInstance = Attendance.get(id)
-        if (!attendanceInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [attendanceInstance: attendanceInstance]
-    }
-
-    def update(Long id, Long version) {
-        def attendanceInstance = Attendance.get(id)
-        if (!attendanceInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (attendanceInstance.version > version) {
-                attendanceInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'attendance.label', default: 'Attendance')] as Object[],
-                          "Another user has updated this Attendance while you were editing")
-                render(view: "edit", model: [attendanceInstance: attendanceInstance])
-                return
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'attendanceInstance.label', default: 'Attendance'), attendanceInstance.id])
+                redirect action: 'index', method: 'GET'
             }
+            '*' { respond attendanceInstance, [status: CREATED] }
         }
-
-        attendanceInstance.properties = params
-
-        if (!attendanceInstance.save(flush: true)) {
-            render(view: "edit", model: [attendanceInstance: attendanceInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'attendance.label', default: 'Attendance'), attendanceInstance.id])
-        redirect(action: "show", id: attendanceInstance.id)
     }
 
-    def delete(Long id) {
-        def attendanceInstance = Attendance.get(id)
-        if (!attendanceInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "list")
+    def edit(Attendance attendanceInstance) {
+        respond attendanceInstance
+    }
+
+    @Transactional
+    def update(Attendance attendanceInstance) {
+        if (attendanceInstance == null) {
+            notFound()
             return
         }
 
-        try {
-            attendanceInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "list")
+        if (attendanceInstance.hasErrors()) {
+            respond attendanceInstance.errors, view:'edit'
+            return
         }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'attendance.label', default: 'Attendance'), id])
-            redirect(action: "show", id: id)
+
+        attendanceInstance.save flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Attendance.label', default: 'Attendance'), attendanceInstance.id])
+                redirect action: 'index', method: 'GET'
+            }
+            '*'{ respond attendanceInstance, [status: OK] }
+        }
+    }
+
+    @Transactional
+    def delete(Attendance attendanceInstance) {
+
+        if (attendanceInstance == null) {
+            notFound()
+            return
+        }
+
+        attendanceInstance.delete flush:true
+
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Attendance.label', default: 'Attendance'), attendanceInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'attendanceInstance.label', default: 'Attendance'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
         }
     }
 }

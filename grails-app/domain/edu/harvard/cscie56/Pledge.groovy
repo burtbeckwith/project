@@ -6,7 +6,11 @@ class Pledge {
 	String created
 	String createdBy
 	Date dueDate
-	String modifiedBy
+	
     static constraints = {
     }
+	
+	static mapping = {
+		version false
+	}
 }

@@ -51,22 +51,34 @@
 										<h4>Offering</h4>
 										<ul>
 											<li><%= link(action:'create',controller:'offering') { 'Create Offering' }%></li>
-											<li><%= link(action:'list',controller:'offering') { 'List Offering' }%></li>
+											<li><%= link(action:'index',controller:'offering') { 'List Offering' }%></li>
 											<li><%= link(action: 'search', controller: 'offering'){'Search Offering'} %></li>
 										</ul>
 									</div>
 									<div>
 										<h4>Tithes</h4>
 										<ul>
-											<LI><%= link(action: 'create', controller: 'tithe'){'Member Tithe'} %>
+											<li><%= link(action: 'create', controller: 'tithe'){'Member Tithe'} %></li>
 											<li><%= link(action:'create',controller:'tithePayment') { 'Tithe Payments' }%></li>
 											<li><%= link(action: 'searchPayments', controller: 'tithePayment') {'Search Payment'} %></li>
+										</ul>
+									</div>									
+								</div><!-- /cbp-hrsub-inner -->
+							</div><!-- /cbp-hrsub -->
+						</li>
+						<li>
+							<a href="#">Pledges</a>
+							<div class="cbp-hrsub">
+								<div class="cbp-hrsub-inner"> 
+								<div>
+										<h4>Pledge</h4>
+										<ul>
+											<li><%= link(action: 'create', controller: 'pledge'){'Create New Pledge'} %></li>
+											<li><%= link(action:'list',controller:'pledge') { 'List Pledge\'s' }%></li>
 										</ul>
 									</div>
 								</div><!-- /cbp-hrsub-inner -->
 							</div><!-- /cbp-hrsub -->
-						</li>
-						
 						<li>
 							<a href="#">Tools</a>
 							<div class="cbp-hrsub">

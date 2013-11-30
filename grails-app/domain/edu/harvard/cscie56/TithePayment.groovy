@@ -2,7 +2,7 @@ package edu.harvard.cscie56
 
 class TithePayment {
 	Tithe tithe
-	Float amount
+	Number amount
 	String datePaid
 	String titheMonth
 	String titheYear

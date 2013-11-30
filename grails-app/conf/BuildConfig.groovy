@@ -30,7 +30,7 @@ grails.project.dependency.resolution = {
     }
     log "error" 
 	log 'warn'
-	log 'info'
+	log "info"
     checksums true // Whether to verify checksums on resolve
     legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 

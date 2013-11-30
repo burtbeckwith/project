@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${tithePaymentInstance?.titheID}">
+				<g:if test="${tithePaymentInstance?.tithe}">
 				<li class="fieldcontain">
 					<span id="tithe-label" class="property-label"><g:message code="tithePayment.tithe.label" default="Tithe" /></span>
 					
-						<span><g:link controller="tithe" action="show" id="${tithePaymentInstance?.titheID}">${tithePaymentInstance?.titheID?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="tithe-label"><g:link controller="tithe" action="show" id="${tithePaymentInstance?.tithe?.id}">${tithePaymentInstance?.tithe?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -78,10 +78,9 @@
 				</g:if>
 			
 			</ol>
-			<g:form>
+			<g:form url="[resource:tithePaymentInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${tithePaymentInstance?.id}" />
-					<g:link class="edit" action="edit" id="${tithePaymentInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${tithePaymentInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

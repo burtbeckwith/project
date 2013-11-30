@@ -15,7 +15,6 @@
 			</ul>
 		</div>
 		<div id="create-tithe" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -26,14 +25,17 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
-				<fieldset class="form">
+			<section class="lampstand-wrapper">
+			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<g:form action="save" class="lampstand-form">
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
 			</g:form>
+			<hr id="line1">
+				<div>
+				<small><b>Note:&nbsp;</b>Enter the Number as it appears on the Church Member's Tithe card. the format of the Tithe ID should be as follows: 0023 should be entered as '23'.</small>
+				</div>
+			</section>
 		</div>
 	</body>
 </html>

@@ -30,30 +30,26 @@
 					
 						<g:sortableColumn property="createdBy" title="${message(code: 'attendance.createdBy.label', default: 'Created By')}" />
 					
-						<g:sortableColumn property="created" title="${message(code: 'attendance.dateCreated.label', default: 'Date Created')}" />
-					
 						<g:sortableColumn property="guestNumber" title="${message(code: 'attendance.guestNumber.label', default: 'Guest Number')}" />
 					
 						<g:sortableColumn property="memberNumber" title="${message(code: 'attendance.memberNumber.label', default: 'Member Number')}" />
-					
+						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${attendanceInstanceList}" status="i" var="attendanceInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${attendanceInstance.id}">${fieldValue(bean: attendanceInstance, field: "adultsNumber")}</g:link></td>
+						<td>${fieldValue(bean: attendanceInstance, field: "adultsNumber")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "childrenNumber")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "createdBy")}</td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "created")}</td>
-					
 						<td>${fieldValue(bean: attendanceInstance, field: "guestNumber")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "memberNumber")}</td>
-					
+						<td><g:link action="edit" id="${attendanceInstance.id}">Edit</g:link></td>
 					</tr>
 				</g:each>
 				</tbody>
@@ -61,6 +57,7 @@
 			<div class="pagination">
 				<g:paginate total="${attendanceInstanceTotal}" />
 			</div>
+			<div class="gap_1"></div>
 		</div>
 	</body>
 </html>

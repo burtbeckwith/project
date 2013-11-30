@@ -33,14 +33,14 @@
 						<g:sortableColumn property="offeringDate" title="${message(code: 'offering.offeringDate.label', default: 'Offering Date')}" />
 					
 						<g:sortableColumn property="service" title="${message(code: 'offering.service.label', default: 'Service')}" />
-					
+						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${offeringInstanceList}" status="i" var="offeringInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${offeringInstance.id}">${fieldValue(bean: offeringInstance, field: "amountCash")}</g:link></td>
+						<td>${fieldValue(bean: offeringInstance, field: "amountCash")}</td>
 					
 						<td>${fieldValue(bean: offeringInstance, field: "amountCheck")}</td>
 					
@@ -49,7 +49,7 @@
 						<td>${fieldValue(bean: offeringInstance, field: "offeringDate")}</td>
 					
 						<td>${fieldValue(bean: offeringInstance, field: "service")}</td>
-					
+						<td><g:link action="edit" id="${offeringInstance.id}">Edit</g:link></td>
 					</tr>
 				</g:each>
 				</tbody>

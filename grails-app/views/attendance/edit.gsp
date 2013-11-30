@@ -27,15 +27,18 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:attendanceInstance, action:'update']" method="PUT" >
+			<section class="lampstand-wrapper">
+			<g:form url="[resource:attendanceInstance, action:'update']" method="PUT" class="lampstand-form" >
 				<g:hiddenField name="version" value="${attendanceInstance?.version}" />
-				<fieldset class="form">
+				
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-				</fieldset>
+					 		<input type="hidden" name="created" value="${attendanceInstance?.created}">
+
+				
+					<input type="submit"  value="Update Attendance" >
+				
 			</g:form>
+			</section>
 		</div>
 	</body>
 </html>

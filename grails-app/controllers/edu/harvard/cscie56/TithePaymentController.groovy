@@ -22,20 +22,29 @@ class TithePaymentController {
         [tithePaymentInstance: new TithePayment(params)]
     }
 
-    def save() {
-        def tithePaymentInstance = new TithePayment(params)
-        if (!tithePaymentInstance.save(flush: true)) {
+    def save(TithePaymentCommand cmd) {
+	
+        def tithePaymentInstance = tithePaymentService.savePayment(cmd)
+        if (!tithePaymentInstance) {
+			log.warn "Error occured while creating new Tithe Payment."
             render(view: "create", model: [tithePaymentInstance: tithePaymentInstance])
             return
         }
-		println tithePaymentInstance
+		log.info  " New Tithe Payment has been created successfully: $tithePaymentInstance" 
         flash.message = message(code: 'default.created.message', args: [message(code: 'tithePayment.label', default: 'TithePayment'), tithePaymentInstance.id])
         redirect(action: "show", id: tithePaymentInstance.id)
     }
 
 	def searchTithe(Long titheID, String titheYear){
 		def tithePayments = tithePaymentService.tithePayment(titheID, titheYear)
-		println tithePayments + " fg" 
+		if(tithePayments == null || !tithePayments){
+			log.info "No Tithe Payment was found for $titheID and $titheYear"
+			flash.message ="No Tithe Payment was found for Tithe ID: $titheID and Tithe Year:$titheYear"
+			redirect(action: 'searchPayments')
+			return
+		}
+		
+		render view: 'searchTithePayment', model : [tithePaymentInstanceList: tithePayments , tithePaymentInstanceTotal: TithePayment.count()]
 		
 	}
 	
@@ -66,7 +75,7 @@ class TithePaymentController {
 		
 		if(!titheInstance || titheInstance == null){
 			flash.message =" No Tithe ID was found..Try again"
-			render(view: "create")
+			redirect(action: "create")
 			return
 		}
 		render view: 'create',  model: [titheInstance: titheInstance,titheInstanceID: titheID]
