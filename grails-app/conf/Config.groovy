@@ -115,6 +115,8 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+	warn 'grails.app.services.grails.plugin.springsecurity.ui.SpringSecurityUiService'
 }
 
 // Added by the JQuery Validation UI plugin:
@@ -222,4 +224,24 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll']
 ]
 logout.postOnly = true
+grails.plugin.springsecurity. ui.password.validationRegex= '^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&/*+_-=]).*$'
+grails.plugin.springsecurity.ui.register.postResetUrl = '/reset'
+grails.plugin.springsecurity.ui.forgotPassword.emailSubject = '[Donot Reply]Password Reset - Lampstand Church Management System'
+grails.plugin.springsecurity.ui.forgotPassword.emailFrom = 'hkboateng@gmail.com'
+grails.plugin.springsecurity.ui.password.maxLength = 20
+grails.plugin.springsecurity.ui.password.minLength = 7
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'edu.harvard.cscie56.auth.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'edu.harvard.cscie56.auth.UserRole'
+grails.plugin.springsecurity.authority.className = 'edu.harvard.cscie56.auth.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
 

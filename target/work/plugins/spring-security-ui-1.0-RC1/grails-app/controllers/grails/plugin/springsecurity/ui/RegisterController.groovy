@@ -258,7 +258,6 @@ class RegisterController extends AbstractS2UiController {
 }
 
 class RegisterCommand {
-	String fullname
 	String username
 	String email
 	String password

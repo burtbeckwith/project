@@ -23,8 +23,8 @@
 		<span id="appName">
 		<sec:ifLoggedIn> 
 		Logged in as: <sec:loggedInUserInfo field="username"/>
-		&nbsp;&nbsp; |&nbsp;&nbsp; </sec:ifLoggedIn>
-		Church Management System</span>
+		&nbsp;&nbsp; | &nbsp;&nbsp;</sec:ifLoggedIn>
+		Church Management System&nbsp;&nbsp;|&nbsp;&nbsp; <%=link(controller: 'logout'){'Logout'} %> &nbsp;&nbsp;</span>
 		</div>
 		<div class="header">
 		<nav id="cbp-hrmenu" class="cbp-hrmenu">
@@ -103,13 +103,22 @@
 										<h4>Users</h4>
 										<ul>
 										<sec:ifLoggedIn>
-											<li><%= link(action:'index',controller:'register') { 'Add New Users' }%></li>
-											<li><%= link(action: 'resetPassword',controller: 'register'){'Reset Password'} %></li>
+											<li><%= link(action:'create',controller:'user') { 'Add New Users' }%></li>
+											<li><%= link(action: 'search',controller: 'user'){'Search Users'} %></li>
 											</sec:ifLoggedIn>
 										</ul>
 										
 									</div>
-									
+									<div>
+										<h4>User Roles</h4>
+										<ul>
+										<sec:ifLoggedIn>
+											<li><%= link(action:'create',controller:'role') { 'Create Roles' }%></li>
+											<li><%= link(action: 'search',controller: 'role'){'Search Roles'} %></li>
+											</sec:ifLoggedIn>
+										</ul>
+										
+									</div>
 									<div>
 										<ul>
 										<sec:ifLoggedIn>
