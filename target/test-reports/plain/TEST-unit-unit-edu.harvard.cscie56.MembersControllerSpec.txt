@@ -1,0 +1,25 @@
+Testsuite: edu.harvard.cscie56.MembersControllerSpec
+Tests run: 6, Failures: 0, Errors: 0, Time elapsed: 11.098 sec
+------------- Standard Output ---------------
+--Output from Test the index action returns the correct model--
+--Output from Test the create action returns the correct model--
+--Output from Test the save action correctly persists an instance--
+--Output from Test that the show action returns the correct model--
+--Output from Test that the edit action returns the correct model--
+--Output from Test the update action performs an update on a valid domain instance--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from Test the index action returns the correct model--
+--Output from Test the create action returns the correct model--
+--Output from Test the save action correctly persists an instance--
+--Output from Test that the show action returns the correct model--
+--Output from Test that the edit action returns the correct model--
+--Output from Test the update action performs an update on a valid domain instance--
+------------- ---------------- ---------------
+
+Testcase: Test the index action returns the correct model took 7.318 sec
+Testcase: Test the create action returns the correct model took 0.343 sec
+Testcase: Test the save action correctly persists an instance took 1.908 sec
+Testcase: Test that the show action returns the correct model took 1.071 sec
+Testcase: Test that the edit action returns the correct model took 0.201 sec
+Testcase: Test the update action performs an update on a valid domain instance took 0.241 sec

@@ -3,7 +3,7 @@ package edu.harvard.cscie56
 class Pledge {
 
 	String pledgeName
-	String created
+	Date created
 	String createdBy
 	Date dueDate
 	

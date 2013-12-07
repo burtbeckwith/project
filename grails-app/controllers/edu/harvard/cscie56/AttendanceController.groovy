@@ -6,7 +6,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 @Secured('ROLE_ADMIN')
-@Transactional(readOnly = true)
+@Transactional()
 class AttendanceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -40,7 +40,8 @@ class AttendanceController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'attendanceInstance.label', default: 'Attendance'), attendanceInstance.id])
+				log.info "Attendance has been save for $attendanceInstance.serviceDate Successfully"
+                flash.message = "Attendance has been save for $attendanceInstance.serviceDate Successfully"
                 redirect action: 'index', method: 'GET'
             }
             '*' { respond attendanceInstance, [status: CREATED] }
@@ -74,6 +75,7 @@ class AttendanceController {
         }
     }
 
+	/***
     @Transactional
     def delete(Attendance attendanceInstance) {
 
@@ -91,7 +93,7 @@ class AttendanceController {
             }
             '*'{ render status: NO_CONTENT }
         }
-    }
+    }***/
 
     protected void notFound() {
         request.withFormat {

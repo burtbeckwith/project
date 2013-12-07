@@ -39,22 +39,23 @@ class MembersControllerSpec extends Specification {
 
         when:"The save action is executed with an invalid instance"
             def members = new Members().save(true)
-            //members.validate()
             controller.save(members)
 
         then:"The create view is rendered again with the correct model"
-            model.membersInstance== null
-            view == 'create'
+            assert model.membersInstance == null
+			controller.flash.message == 'default.not.found.message'
+            response.redirectUrl == '/members/index'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            members = new Members(params)
+            members = new Members(fullname:'Hubert Boateng',email:'hkboateng@gmail.com',phone: '347-967-3456',gender: 'male',
+									createdBy: 'Philip Amoako',created:'11/23/2013').save()
 
             controller.save(members)
 
-        then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/members/show/1'
+        then:"A redirect is issued to the index action"
+            response.redirectedUrl == '/members/index'
             controller.flash.message != null
             Members.count() == 1
     }
@@ -114,10 +115,11 @@ class MembersControllerSpec extends Specification {
             members = new Members(params).save(flush: true)
             controller.update(members)
         then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/members/show/$members.id"
+            response.redirectedUrl == "/members/index"
             flash.message != null
+			
     }
-
+/***
     void "Test that the delete action deletes an instance if it exists"() {
         when:"The delete action is called for a null instance"
             controller.delete(null)
@@ -141,5 +143,5 @@ class MembersControllerSpec extends Specification {
             Members.count() == 0
             response.redirectedUrl == '/members/index'
             flash.message != null
-    }
+    }****/
 }

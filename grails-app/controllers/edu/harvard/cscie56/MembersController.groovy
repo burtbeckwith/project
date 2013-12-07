@@ -48,7 +48,7 @@ class MembersController {
             form {
                 flash.message = 'New Member has been created successfully'
                 
-				redirect action: 'create'
+				redirect view: 'create'
             }
             '*' { respond membersInstance, [status: CREATED] }
         }
@@ -111,12 +111,19 @@ class MembersController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Members.label', default: 'Members'), membersInstance.id])
-                redirect membersInstance
+                redirect membersInstance, view: 'index'
             }
             '*'{ respond membersInstance, [status: OK] }
         }
     }
 
+	def createGuest(){
+		render view: 'addGuest'
+	}
+	
+	def saveGuest(GuestCommand cmd){
+		
+	}
     @Transactional
     def delete(Members membersInstance) {
 
@@ -140,7 +147,7 @@ class MembersController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'membersInstance.label', default: 'Members'), params.id])
-                redirect action: "index", method: "GET"
+                redirect view: "create", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
         }
@@ -160,5 +167,23 @@ class MemberCommand{
 		phone phoneUS: true
 		email: unique: true
 		gender inList: ['male','female']
+	}
+}
+class GuestCommand{
+	String name
+	String address
+	String address1
+	String city
+	String state
+	Integer zip
+	String homePhone
+	String mobilePhone
+	String email
+	static belongsTo = [attendance : Attendance]
+	String comments
+	
+	static constraints = {
+		homePhone phoneUS:true
+		mobilePhone phoneUS:true
 	}
 }

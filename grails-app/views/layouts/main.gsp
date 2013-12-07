@@ -87,11 +87,18 @@
 										<h4>Attendance</h4>
 										<ul>
 											<li><%= link(action: 'create',controller: 'attendance') {'Add Attendance'}%></li>
-											<li><%= link(action: 'list',controller: 'attendance') {'List Attendance'}%></li>
+											<li><%= link(action: 'index',controller: 'attendance') {'List Attendance'}%></li>
 											<li><%= link(action: 'search',controller: 'attendance') {'Search Attendance'}%></li>
 										</ul>
 									</div>
-									
+									<div>
+										<h4>Guest</h4>
+										<ul>
+											<li><%= link(action: 'create',controller: 'guest') {'Add New Guest'}%></li>
+											<li><%= link(action: 'index',controller: 'guest') {'List Guest'}%></li>
+											<li><%= link(action: 'search',controller: 'guest') {'Search Guest'}%></li>
+										</ul>
+									</div>									
 								</div><!-- /cbp-hrsub-inner -->
 							</div><!-- /cbp-hrsub -->
 						</li>

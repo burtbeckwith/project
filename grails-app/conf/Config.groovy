@@ -245,3 +245,4 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll']
 ]
 
+grails.views.gsp.encoding="UTF-8"

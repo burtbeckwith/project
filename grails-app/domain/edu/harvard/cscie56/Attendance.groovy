@@ -4,14 +4,20 @@ class Attendance {
 
 	String service
 	String serviceDate
-	String memberNumber
-	String guestNumber
-	String childrenNumber
-	String adultsNumber
+	Integer memberNumber
+	Integer guestNumber
+	Integer childrenNumber
+	Integer adultsNumber
 	String createdBy
 	String created
 	
     static constraints = {
+		
     }
+	
+	static mapping = {
+		version false
+		serviceDate column: 'servicedate', index: 'servicedate_Idx'
+	}
 	
 }
