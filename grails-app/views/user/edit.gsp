@@ -10,13 +10,19 @@
 </sec:ifNotSwitched>
 
 <head>
-	<meta name='layout' content='springSecurityUI'/>
+	<meta name='layout' content='main'/>
 	<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
 	<title><g:message code="default.edit.label" args="[entityName]"/></title>
+		<r:require modules="spring-security-ui"/>
 </head>
 
 <body>
 
+<g:if test="${flash.message }">
+<div class="messages">
+${flash.message }
+</div>
+</g:if>
 <h3><g:message code="default.edit.label" args="[entityName]"/></h3>
 
 <g:form action="update" name='userEditForm' class="button-style">

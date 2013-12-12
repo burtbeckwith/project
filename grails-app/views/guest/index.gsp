@@ -24,7 +24,7 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="name" title="${message(code: 'guest.guestStatus.label', default: 'Guest Status')}" />
+						<g:sortableColumn property="name" title="${message(code: 'guest.guestStatus.label', default: 'Guest Name')}" />
 					
 						<g:sortableColumn property="Phone Number" title="${message(code: 'guest.homePhone.label', default: 'Phone Number')}" />
 					
@@ -33,7 +33,7 @@
 						<g:sortableColumn property="address" title="${message(code: 'guest.address.label', default: 'Address')}" />
 					
 						<g:sortableColumn property="guestStatus" title="${message(code: 'guest.address1.label', default: 'Guest Status')}" />
-
+						<th>Service Name</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,10 +46,10 @@
 					
 						<td>${fieldValue(bean: guestInstance, field: "email")}</td>
 					
-						<td>${fieldValue(bean: guestInstance, field: "address")}&nbsp;<br>${fieldValue(bean: guestInstance, field: "address1")}&nbsp;${fieldValue(bean: guestInstance, field: "city")}&nbsp;${fieldValue(bean: guestInstance, field: "state")}&nbsp;,${fieldValue(bean: guestInstance, field: "zip")}</td>
+						<td>${fieldValue(bean: guestInstance, field: "address")}&nbsp;${fieldValue(bean: guestInstance, field: "address1")}&nbsp;<br>${fieldValue(bean: guestInstance, field: "city")}&nbsp;${fieldValue(bean: guestInstance, field: "state")}&nbsp;,${fieldValue(bean: guestInstance, field: "zip")}</td>
 					
 						<td>${fieldValue(bean: guestInstance, field: "guestStatus")}</td>
-					
+						<td>${fieldValue(bean: guestInstance, field: "attendance.service")}</td>
 					</tr>
 				</g:each>
 				</tbody>

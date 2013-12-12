@@ -37,24 +37,15 @@ class GuestController {
 			flash.message = "No record was found for Service Date: $searchdate"
 			return
 		}
-		//println attendanceInstance
-		/**Use the attendanceInstance to to find the guests that where entered for that particular date**/
-		/**println attendanceInstance
-		def guests = Guest.createCriteria().list{
-				eq('attendance',attendanceInstance)
-			
-		}
-		if(!guests == null|| !guests){
-			log.warn "No Recored was found for $searchdate"
-			flash.message = "No record was found for Service Date: $attendanceInstance"
 
-			return
-		}**/
-		println attendanceInstance
 		log.info "Service Date search was successful."
-		render view: 'searchGuest', model: [guestInstanceList: attendanceInstance, guestInstanceCount: attendanceInstance]
+		render view: 'searchGuest', model: [guestInstanceList: attendanceInstance, serviceName: service, serviceDate: searchdate]
 	}
 	
+	def addGuest(Long id){
+		
+		render (view: 'create', model:[attendanceName: Attendance.get(id)])
+	}
     @Transactional
     def save(Guest guestInstance) {
         if (guestInstance == null) {

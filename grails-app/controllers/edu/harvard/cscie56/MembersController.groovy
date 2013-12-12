@@ -53,22 +53,22 @@ class MembersController {
             '*' { respond membersInstance, [status: CREATED] }
         }
     }
-		def searchPhone(MemberCommand cmd){
+	def searchPhone(String phone){
 		
-			def memberInstance = memberService.searchByPhone(cmd)
+			def memberInstance = Members.findByPhone(phone)
 				if(!memberInstance || memberInstance == null){
-					flash.message = "No record was found for Phone Number: "+cmd.phone
+					flash.message = "No record was found for Phone Number $phone"
 					redirect(action: 'find')
 					return
 				}
 		
 				render (view: 'find', model:[ membersInstance: memberInstance])
 			}
-			def searchEmail(MemberCommand cmd){
+			def searchEmail(String emailAddress){
 		
-				def memberInstance = memberService.searchByEmail(cmd)
+				def memberInstance = Members.findByEmail(emailAddress)
 				if(!memberInstance || memberInstance == null){
-					flash.message = "No record was found for Email Address: "+cmd.email
+					flash.message = "No record was found for Email Address: $emailAddress"
 					redirect(action: 'find')
 					return
 				}
@@ -78,11 +78,11 @@ class MembersController {
 			def search(){
 				render view: 'search'
 			}
-			def searchName(MemberCommand cmd){
+			def searchName(String fullname){
 		
-				def memberInstance = memberService.searchMemberName(cmd)
+				def memberInstance = Members.findByFullname(fullname)
 				if(!memberInstance || memberInstance == null){
-					flash.message = "No record was found for Full Name: "+cmd.fullname
+					flash.message = "No record was found for Full Name $fullname"
 					redirect(action: 'find')
 					return
 				}
@@ -95,35 +95,32 @@ class MembersController {
     }
 
     @Transactional
-    def update(Members membersInstance) {
-        if (membersInstance == null) {
-            notFound()
+    def update(Long id, Long version) {
+		def membersInstance = Members.get(id)
+        if (!membersInstance || membersInstance == null) {
+			flash.message = "No Member was found. Try again"
+            render view : 'edit'
             return
         }
-
         if (membersInstance.hasErrors()) {
             respond membersInstance.errors, view:'edit'
             return
         }
+		
+		membersInstance.properties = params
 
-        membersInstance.save flush:true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Members.label', default: 'Members'), membersInstance.id])
-                redirect membersInstance, view: 'index'
-            }
-            '*'{ respond membersInstance, [status: OK] }
-        }
+		if(!membersInstance.save(flush:true)){
+			flash.message = "An Error occured while process your request. Contact your Admin or you can try gain later"
+			return
+		}
+		flash.message = "Members Information has been updated Successfully."
+		redirect (action: 'show', model: [membersInstance: membersInstance])
+       
     }
 
-	def createGuest(){
-		render view: 'addGuest'
-	}
+
 	
-	def saveGuest(GuestCommand cmd){
-		
-	}
+
     @Transactional
     def delete(Members membersInstance) {
 
@@ -131,8 +128,7 @@ class MembersController {
             notFound()
             return
         }
-
-        membersInstance.delete flush:true
+		
 
         request.withFormat {
             form {
@@ -152,38 +148,4 @@ class MembersController {
             '*'{ render status: NOT_FOUND }
         }
     }
-}
-class MemberCommand{
-	Long id
-	String fullname
-	String email
-	String phone
-	String gender
-	String created
-	String createdBy
-	
-	static constraints = {
-		email email: true
-		phone phoneUS: true
-		email: unique: true
-		gender inList: ['male','female']
-	}
-}
-class GuestCommand{
-	String name
-	String address
-	String address1
-	String city
-	String state
-	Integer zip
-	String homePhone
-	String mobilePhone
-	String email
-	static belongsTo = [attendance : Attendance]
-	String comments
-	
-	static constraints = {
-		homePhone phoneUS:true
-		mobilePhone phoneUS:true
-	}
 }

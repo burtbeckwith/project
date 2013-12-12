@@ -1,13 +1,18 @@
 <html>
 
 <head>
-	<meta name='layout' content='springSecurityUI'/>
+		<meta name='layout' content='main'/>
 	<g:set var="entityName" value="${message(code: 'role.label', default: 'Role')}"/>
 	<title><g:message code="default.edit.label" args="[entityName]"/></title>
+	<r:require modules="spring-security-ui"/>
 </head>
 
 <body>
-
+<g:if test="${flash.message }">
+<div class="messages">
+${flash.message }
+</div>
+</g:if>
 <h3><g:message code="default.edit.label" args="[entityName]"/></h3>
 
 <g:form action="update" name='roleEditForm'>
@@ -41,15 +46,17 @@ tabData << [name: 'users',    icon: 'icon_users', messageCode: 'spring.security.
 	</s2ui:tab>
 
 </s2ui:tabs>
+<div style='float:left; margin-top: 10px;'>
+<g:if test='${role}'>
+<s2ui:deleteButton />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</g:if>
+</div>
 
 <div style='float:left; margin-top: 10px;'>
 <s2ui:submitButton elementId='update' form='roleEditForm' messageCode='default.button.update.label'/>
-
-<g:if test='${role}'>
-<s2ui:deleteButton />
-</g:if>
-
 </div>
+
+
 
 </g:form>
 

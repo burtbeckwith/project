@@ -1,18 +1,23 @@
+<%@ page import="org.codehaus.groovy.grails.plugins.PluginManagerHolder" %>
+<%@ page import="grails.plugin.springsecurity.SpringSecurityUtils" %>
 <html>
 
 <head>
-	<meta name='layout' content='springSecurityUI'/>
+	<meta name='layout' content='main'/>
 	<g:set var="entityName" value="${message(code: 'role.label', default: 'Role')}"/>
-	<title><g:message code="default.create.label" args="[entityName]"/></title>
+	<title><g:message code="default.create.label" args="[entityName]"/> - Church Management Software</title>
+	<r:require modules="spring-security-ui"/>
 </head>
 
-<body>
-
-<div class="body">
-
-	<s2ui:form width='100%' height='200' elementId='formContainer'
-	           titleCode='default.create.label' titleCodeArgs='[entityName]'>
-
+<body class="container">
+<h3>New Role</h3>
+<hr>
+<div>
+<g:if test="${flash.message }">
+<div class="messages">
+${flash.message }
+</div>
+</g:if>
 	<g:form action="save" name='roleCreateForm'>
 		<div class="dialog">
 
@@ -28,7 +33,8 @@
 
 					<tr class="prop">
 						<td valign="top">
-							<s2ui:submitButton elementId='create' form='roleCreateForm' messageCode='default.button.create.label'/>
+						<input type="submit" value="Create Role">
+							
 						</td>
 					</tr>
 
@@ -37,8 +43,6 @@
 		</div>
 
 	</g:form>
-
-	</s2ui:form>
 
 </div>
 

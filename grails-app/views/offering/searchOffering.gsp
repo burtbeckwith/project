@@ -4,18 +4,21 @@
 <title>Search Offering</title>
 </head>
 <div>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
+	<h1>Search for Offering</h1>
+	<fieldset>
+	<legend>Offering Date</legend>	
 	<g:form action="searchOffering">
 		<label for="offeringDate">Date of Offering:</label>
 		<input type="text"
 			name="offeringDate" value="" id="offeringDate" placeholder="MM/DD/YYYY">
 		<input type="submit"  value="Search Tithe">
 	</g:form>
-	
+	</fieldset>
 	<hr id="line1">
 	</div>
+				<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
 	<div id="results">
 	<g:if test="${offeringInstanceList}">
 	<div><h2>Search Results</h2></div>

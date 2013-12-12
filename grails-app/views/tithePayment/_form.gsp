@@ -1,11 +1,12 @@
 <%@ page import="edu.harvard.cscie56.TithePayment" %>
 
 
-<g:if test="${titheInstance || titheInstanceID}">
+<div class="list-members">
+
 <g:each var="tithe" in="${titheInstance }">
 <li>${tithe.member }</li>
 </g:each>
-
+</div>
 <div class="fieldcontain ${hasErrors(bean: tithePaymentInstance, field: 'acceptedBy', 'error')} ">
 	<label for="acceptedBy">
 		<g:message code="tithePayment.acceptedBy.label" default="Accepted By" />
@@ -54,4 +55,4 @@
 	</label>
 	<g:textField name="titheYear" value="${tithePaymentInstance?.titheYear}"/>
 </div>
-</g:if>
+

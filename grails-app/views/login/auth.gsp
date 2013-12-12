@@ -2,7 +2,7 @@
 
 <head>
 <title><g:message code='spring.security.ui.login.title'/></title>
-<meta name='layout' content='register'/>
+<meta name='layout' content='main'/>
 
 		<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'reset.css',plugin:'spring-security-ui')}"/>
 	<link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'spring-security-ui.css',plugin:'spring-security-ui')}"/>

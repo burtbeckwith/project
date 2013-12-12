@@ -111,7 +111,7 @@ class AttendanceControllerSpec extends Specification {
         when:"Update is called for a domain instance that doesn't exist"
             controller.update(null)
 
-        then:"A 404 error is returned"
+        then:"A 302 error is returned"
             status == 302
 
         when:"An invalid domain instance is passed to the update action"
@@ -122,6 +122,7 @@ class AttendanceControllerSpec extends Specification {
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
+			attendance.service != 'Sunday'
             model.attendanceInstance == attendance
 
         when:"A valid domain instance is passed to the update action"
@@ -134,6 +135,27 @@ class AttendanceControllerSpec extends Specification {
             response.redirectedUrl == "/attendance/index"
             flash.message != null
     }
+	void "Test when Attendance was created and a guest has to be created"(){
+		when: "Attendance is greated"
+		populateValidParams(params)
+		def attendance = new Attendance(service: 'Sunday',serviceDate: '11/23/2013',memberNumber: 20,guestNumber: 20,
+							childrenNumber: 10,adultsNumber: 20,createdBy: 'Hubert Boateng',created: '11/20/2013').save(flush: true)
+		controller.save(attendance)
+		response.reset()
+		
+		then: 'Check to see if Attendance was saved'
+		assert attendance != null
+		assert attendance.id== 1
+		assert attendance.service =='Sunday'
+		assert attendance.serviceDate != '10/10/2013'
+		
+		when: "Attendance $attendance.id is saved."
+		controller.addGuest(attendance.id)
+		
+		then: 'Add Guest Information to Attendance'
+		
+		assert response.redirectedUrl == "/guest/addGuest/1"
+	}
 /**
     void "Test that the delete action deletes an instance if it exists"() {
         when:"The delete action is called for a null instance"

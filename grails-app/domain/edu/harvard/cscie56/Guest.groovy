@@ -13,7 +13,7 @@ class Guest {
 	String address1
 	String city
 	String state
-	Integer zip
+	Long zip
 	String homePhone
 	String mobilePhone 
 	String email
@@ -24,11 +24,14 @@ class Guest {
 		mobilePhone phoneUS:true
 		email email:true
 		address1 nullable: true
+		homePhone nullable: true
+		
+		
     }
 	
 	static mapping = {
 		version false
-		
+		cache true
 	}
 	
 }

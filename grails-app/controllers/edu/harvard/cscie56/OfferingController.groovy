@@ -5,6 +5,7 @@ package edu.harvard.cscie56
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import java.text.SimpleDateFormat
 @Secured('ROLE_ADMIN')
 @Transactional(readOnly = true)
 class OfferingController {
@@ -79,13 +80,12 @@ class OfferingController {
     }
 	@Transactional
 	def searchOffering(String offeringDate){
-		if(offeringDate == null){
-			notFound()
-			return
-		}
-		def offeringInstance = offeringService.searchOffering(offeringDate)
+		def date = new SimpleDateFormat('MM/dd/yyyy')
+		def offeringdate = date.parse(offeringDate)
+
+		def offeringInstance = Offering.findByOfferingDate(offeringdate)
 		if (!offeringInstance || offeringInstance == null){
-			flash.message = " No Offering was found. Try again."
+			flash.message = "No Offering was found. Try again."
 			return
 		}
 		log.info "Offering was found successfully for date: $offeringDate"

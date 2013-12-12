@@ -1,8 +1,9 @@
 <html>
 
 <head>
-	<meta name='layout' content='springSecurityUI'/>
-	<title><g:message code='spring.security.ui.role.search'/></title>
+		<meta name='layout' content='main'/>
+	<title>Search Role - Church Management System</title>
+	<r:require modules="spring-security-ui"/>
 </head>
 
 <body>

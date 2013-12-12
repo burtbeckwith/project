@@ -22,6 +22,11 @@
 		</div>
 		<div>
 		<g:if test="${guestInstanceList }">
+		<div>
+			<h1>${serviceName }</h1>
+			<h3>${serviceDate }</h3>
+			<hr id="line1">
+		</div>
 		<table>
 			<thead>
 					<tr>
@@ -56,9 +61,6 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${guestInstanceCount ?: 0}" />
-			</div>
 			</g:if>
 			<div class="error">
 			<g:if test="${flash.message }">

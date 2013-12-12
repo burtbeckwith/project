@@ -102,6 +102,7 @@
 								</div><!-- /cbp-hrsub-inner -->
 							</div><!-- /cbp-hrsub -->
 						</li>
+						<sec:ifLoggedIn>
 						<li>
 							<a href="#">Administrator</a>
 							<div class="cbp-hrsub">
@@ -109,20 +110,18 @@
 									<div>
 										<h4>Users</h4>
 										<ul>
-										<sec:ifLoggedIn>
+										
 											<li><%= link(action:'create',controller:'user') { 'Add New Users' }%></li>
 											<li><%= link(action: 'search',controller: 'user'){'Search Users'} %></li>
-											</sec:ifLoggedIn>
+											
 										</ul>
 										
 									</div>
 									<div>
 										<h4>User Roles</h4>
 										<ul>
-										<sec:ifLoggedIn>
 											<li><%= link(action:'create',controller:'role') { 'Create Roles' }%></li>
 											<li><%= link(action: 'search',controller: 'role'){'Search Roles'} %></li>
-											</sec:ifLoggedIn>
 										</ul>
 										
 									</div>
@@ -136,6 +135,7 @@
 								</div><!-- /cbp-hrsub-inner -->
 							</div><!-- /cbp-hrsub -->
 						</li>
+						</sec:ifLoggedIn>
 					</ul>
 				</nav>
 				</div>

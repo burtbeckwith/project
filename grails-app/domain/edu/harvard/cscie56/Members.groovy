@@ -15,4 +15,8 @@ class Members {
 		phone phoneUS: true
 		gender inList: ['male','female']
     }
+	
+	static mapping = {
+		cache true
+	}
 }

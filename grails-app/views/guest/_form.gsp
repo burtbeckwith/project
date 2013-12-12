@@ -97,9 +97,12 @@
 		<g:message code="guest.attendance.label" default="Church Service Attended" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="attendance" name="attendance.id" from="${edu.harvard.cscie56.Attendance.list()}" optionKey="id" optionValue="service" required="" value="${guestInstance?.attendance?.id}" class="many-to-one"/>
+	<g:select id="attendance" name="attenance" from="${edu.harvard.cscie56.Attendance.list()}" optionKey="id" optionValue="service" required="" value="${guestInstance?.attendance?.id ?: attendanceName?.service}" class="many-to-one"/>
 </div>
 </div>
+<input type="text" name="attendaance.id" value="${guestInstance?.attendance?.id ?: attendanceName?.service}" size="30" disabled="disabled">
+<input type="hidden" name="attendance" value="${guestInstance?.attendance?.id ?: attendanceName?.id}" size="30" >
+
 <div class="lampstand-outer lampstand-required">
 	<div class="lampstand-inner">
 	<label for="comments">

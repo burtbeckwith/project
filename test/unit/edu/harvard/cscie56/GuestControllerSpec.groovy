@@ -42,27 +42,47 @@ class GuestControllerSpec extends Specification {
 
         then:"The create view is rendered again with the correct model"
             model.guestInstance!= null
-            view == 'create'
+            assert view == 'create'
 
+		when: "The save action is executed with an invalid data"
+			def guestInstance = new Guest(gender: 'male',maritalStatus: 'Single',guestStatus: 'New Visitor',ageGroup: '19-28',comments: 'Everything is OK',
+							createdBy: 'admin',created: '12/10/2013',name: 'John Doe',address: '67 Webster Sreet',city: 'Pawtucket',state:'MA',zip: '02861', mobilePhone: '347-967-7223',email: 'hkboateng@hotmail.com').save(flush: true)
+			
+			controller.save(guestInstance)
+			assert guestInstance == null
+			
+		then: 'redirect back to the create page'
+		view == 'create'
+		assert flash.message == 'default.not.found.message'
+		
         when:"The save action is executed with a valid instance"
             response.reset()
-            populateValidParams(params)
-            guest = new Guest(params)
-
+			def attend = new Attendance(service: 'Sunday',serviceDate: '11/23/2013',memberNumber: 20,guestNumber: 20,
+							childrenNumber: 10,adultsNumber: 20,createdBy: 'Hubert Boateng',created: '11/20/2013')
+							
+            guest = new Guest(gender: 'male',maritalStatus: 'Single',guestStatus: 'New Visitor',ageGroup: '19-28',comments: 'Everything is OK',
+							createdBy: 'admin',created: '12/10/2013',name: 'John Doe',address: '67 Webster Sreet',city: 'Pawtucket',state:'MA',
+							zip: '12861',homePhone:'324-896-7452', mobilePhone: '347-967-7223',email: 'hkboateng@hotmail.com',attendance:attend )
+			
+			guest.save(flush: true)
+			assert guest.id == 1
             controller.save(guest)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/guest/show/1'
+            response.redirectedUrl == '/guest/index'
             controller.flash.message != null
             Guest.count() == 1
+			assert guest.zip == 12861
+			assert guest.name == 'John Doe'
+			assert guest.state == 'MA' 
     }
 
     void "Test that the show action returns the correct model"() {
         when:"The show action is executed with a null domain"
             controller.show(null)
 
-        then:"A 404 error is returned"
-            response.status == 404
+        then:"A 302 error is returned"
+            response.status == 302
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
@@ -78,7 +98,7 @@ class GuestControllerSpec extends Specification {
             controller.edit(null)
 
         then:"A 404 error is returned"
-            response.status == 404
+            response.status == 302
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
@@ -94,7 +114,7 @@ class GuestControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            status == 404
+            status == 302
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
@@ -140,4 +160,5 @@ class GuestControllerSpec extends Specification {
             response.redirectedUrl == '/guest/index'
             flash.message != null
     }
+	
 }

@@ -3,16 +3,33 @@ package edu.harvard.cscie56
 
 
 import grails.test.mixin.*
+import java.text.SimpleDateFormat
 import spock.lang.*
 
 @TestFor(OfferingController)
 @Mock(Offering)
 class OfferingControllerSpec extends Specification {
+	def r = new SimpleDateFormat("MM/dd/yyyy")
 
+/**
+ * 
+ *     String service
+    Float amountCheck
+    Float amountCash
+    String offeringDate
+    String approvedBy
+ * @param params
+ * @return
+ */
     def populateValidParams(params) {
         assert params != null
+		def date = r.parse('12/13/2013')
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params.service = 'Mid-Week Service'
+		params.amountCheck = 200
+		params.amountcash = 100
+		params.offeringdate = date
+		params.approvedBy = 'John Doe'
     }
 
     void "Test the index action returns the correct model"() {
@@ -47,14 +64,18 @@ class OfferingControllerSpec extends Specification {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            offering = new Offering(params)
+			def date = r.parse('11/23/2013')
 
+            offering = new Offering(service:'Mid-Week',amountCash: 200,amountCheck: 100, offeringDate: date, approvedBy: 'John Doe').save(flush: true)
+			offering.validate()
             controller.save(offering)
-
+			assert offering.id == 1
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/offering/show/1'
-            controller.flash.message != null
-            Offering.count() == 1
+           
+            flash.message != null
+            offering.count() == 1
+			offering.service != 'Sunday'
+			response.redirectedUrl == '/offering/index'
     }
 
     void "Test that the show action returns the correct model"() {
@@ -127,11 +148,11 @@ class OfferingControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def offering = new Offering(params)
+            def offering = new Offering(params).save(flush: true)
 			
 			controller.save(offering)
         then:"It exists"
-            Offering.count() == 1
+            offering.count() == 1
 
         when:"The domain instance is passed to the delete action"
             controller.delete(offering)
@@ -141,4 +162,31 @@ class OfferingControllerSpec extends Specification {
             response.redirectedUrl == '/offering/index'
             flash.message != null
     }
+	
+	void "Test that an instance is "(){
+	
+		when: 'When the search method is executed'
+		controller.search()
+		then : 'Search view is renderd'
+		view == '/offering/searchOffering'
+		
+		when: 'When searchOffering is exeuted with incorrect offering date'
+		populateValidParams(params)
+		controller.searchOffering('11/20/2013')
+		
+		then: 'Error message is rendered'
+		flash.message == "No Offering was found. Try again."
+		view == '/offering/searchOffering'
+		
+		when: 'When searchOffering is exeuted with incorrect offering date'
+		populateValidParams(params)
+		def offeringInstance = controller.searchOffering('12/13/2013')
+		
+		then: 'Error message is rendered'
+		//flash.message == "No Offering was found. Try again."
+		view == '/offering/searchOffering'
+		model.offeringInstance == offeringInstance
+		flash.message == "No Offering was found. Try again."
+		
+	}
 }

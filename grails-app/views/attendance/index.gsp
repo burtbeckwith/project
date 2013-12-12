@@ -24,32 +24,33 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="adultsNumber" title="${message(code: 'attendance.adultsNumber.label', default: 'Adults Number')}" />
+						<g:sortableColumn property="service" title="${message(code: 'attendance.adultsNumber.label', default: 'Service Name')}" />
 					
-						<g:sortableColumn property="childrenNumber" title="${message(code: 'attendance.childrenNumber.label', default: 'Children Number')}" />
+						<g:sortableColumn property="serviceDate" title="${message(code: 'attendance.childrenNumber.label', default: 'Service Date')}" />
 					
-						<g:sortableColumn property="createdBy" title="${message(code: 'attendance.createdBy.label', default: 'Created By')}" />
+						<g:sortableColumn property="memberNumber" title="${message(code: 'attendance.memberNumber.label', default: 'Member Number')}"  />
 					
 						<g:sortableColumn property="guestNumber" title="${message(code: 'attendance.guestNumber.label', default: 'Guest Number')}" />
-					
-						<g:sortableColumn property="memberNumber" title="${message(code: 'attendance.memberNumber.label', default: 'Member Number')}" />
+						<th>Show</th>
 						<th>Edit</th>
+						<th>Add Guest Info</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${attendanceInstanceList}" status="i" var="attendanceInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "adultsNumber")}</td>
+						<td>${fieldValue(bean: attendanceInstance, field: "service")}</td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "childrenNumber")}</td>
+						<td>${fieldValue(bean: attendanceInstance, field: "serviceDate")}</td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "createdBy")}</td>
+						<td>${fieldValue(bean: attendanceInstance, field: "memberNumber")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "guestNumber")}</td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "memberNumber")}</td>
+						<td><g:link action="show" id="${attendanceInstance.id}">Show</g:link></td>
 						<td><g:link action="edit" id="${attendanceInstance.id}">Edit</g:link></td>
+						<td><g:link action="addGuest" id="${attendanceInstance.id}">Add Guest</g:link></td>
 					</tr>
 				</g:each>
 				</tbody>

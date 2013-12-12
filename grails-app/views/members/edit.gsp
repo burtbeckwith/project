@@ -30,7 +30,7 @@
 			<section class="lampstand-wrapper">
 			<g:form url="[resource:membersInstance, action:'update']" method="PUT" class="lampstand-form" >
 				<g:hiddenField name="version" value="${membersInstance?.version}" />
-				
+				<g:hiddenField name="id" value="${membersInstance?.id}" />
 					<g:render template="form"/>
 							<input type="hidden" name="modifiedOn" value="<g:formatDate format="MM/dd/yyyy" date="${new Date()}"/>">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

@@ -8,19 +8,15 @@
 	<div class="nav" role="navigation">
 		<ul>
 			<li><g:link class="list" action="index">
-					<g:message code="default.list.label" args="[entityName]" />
+					List Tithe Payments
 				</g:link></li>
 		</ul>
 	</div>
 	<div id="create-tithePayment">
 		<h1>
-			<g:message code="default.create.label" args="[entityName]" />
+			Add Tithe Payment
 		</h1>
-		<g:if test="${flash.message}">
-			<div class="message" role="status">
-				${flash.message}
-			</div>
-		</g:if>
+
 		<g:hasErrors bean="${tithePaymentInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${tithePaymentInstance}" var="error">
@@ -37,15 +33,18 @@
 				<g:submitButton name="search" value="Search Tithe" />
 			</g:form>
 		</div>
-		<g:form url="[resource:tithePaymentInstance, action:'save']">
-			<fieldset class="form">
+		<g:if test="${flash.message}">
+			<div class="messages" role="status">
+				${flash.message}
+			</div>
+		</g:if>
+		<g:if test="${titheInstance || titheInstanceID}">
+		<g:form url="[resource:tithePaymentInstance, action:'save']" class="lampstand-form">
 				<g:render template="form" />
-			</fieldset>
-			<fieldset class="buttons">
 				<g:submitButton name="create" class="save"
 					value="${message(code: 'default.button.create.label', default: 'Create')}" />
-			</fieldset>
 		</g:form>
+		</g:if>
 	</div>
 </body>
 </html>

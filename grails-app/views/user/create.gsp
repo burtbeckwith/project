@@ -2,13 +2,18 @@
 <html>
 
 <head>
-	<meta name='layout' content='springSecurityUI'/>
+	<meta name='layout' content='main'/>
 	<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
 	<title><g:message code="default.create.label" args="[entityName]"/></title>
+	<r:require modules="spring-security-ui"/>
 </head>
 
-<body>
-
+<body class="container">
+<g:if test="${flash.message }">
+<div class="messages">
+${flash.message }
+</div>
+</g:if>
 <h3><g:message code="default.create.label" args="[entityName]"/></h3>
 
 <g:form action="save" name='userCreateForm'>
@@ -53,6 +58,7 @@ tabData << [name: 'roles',    icon: 'icon_role', messageCode: 'spring.security.u
                            labelCodeDefault='Password Expired' value="${user?.passwordExpired}"/>
 		</tbody>
 		</table>
+		
 	</s2ui:tab>
 
 	<s2ui:tab name='roles' height='280'>
@@ -64,12 +70,10 @@ tabData << [name: 'roles',    icon: 'icon_role', messageCode: 'spring.security.u
 		</g:each>
 	</s2ui:tab>
 
-</s2ui:tabs>
-
 <div style='float:left; margin-top: 10px; '>
 <s2ui:submitButton elementId='create' form='userCreateForm' messageCode='default.button.create.label'/>
 </div>
-
+</s2ui:tabs>
 </g:form>
 
 <script>

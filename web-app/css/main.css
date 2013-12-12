@@ -15,6 +15,7 @@
     display: table;
     clear: both;
 }
+
 .form-4 {
     /* Size and position */
     width: 300px;
@@ -181,11 +182,11 @@ body{
 }
 .container{
 	background-color: white;
-	width: 1000px;
+	width: 80%;
 	margin: auto;
 	font-family: 'Lato',Georgia, sans-serif;
 font-weight: 500;
-height: 100%;
+min-height: 800px;
 }
 .saveBtn{
 font-family: 'Lato',Georgia, sans-serif;
@@ -288,7 +289,18 @@ th.desc a {
 .even {
 	background: #ffffff;
 }
-
+.list-members li{
+	list-style: none;
+}
+.messages{
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	margin-top: 5em;
+	margin-bottom: 2em;
+	border-top: 5px solid blue;
+	border-bottom: 5px solid blue;
+}
 th:hover, tr:hover {
 	background: #73C2FB;
 	color: white;

@@ -3,9 +3,9 @@ package edu.harvard.cscie56
 class Offering {
 
     String service
-    Float amountCheck
-    Float amountCash
-    String offeringDate
+    Long amountCheck
+    Long amountCash
+    Date offeringDate
     String approvedBy
 	
     static constraints = {
