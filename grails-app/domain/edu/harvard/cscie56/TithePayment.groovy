@@ -3,7 +3,7 @@ package edu.harvard.cscie56
 class TithePayment {
 	Tithe tithe
 	Number amount
-	String datePaid
+	Date datePaid
 	String titheMonth
 	String titheYear
 	String acceptedBy

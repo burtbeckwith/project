@@ -125,17 +125,20 @@ class OfferingControllerSpec extends Specification {
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
+			flash.message == null
             model.offeringInstance == offering
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
+			params.amountCash = 250
             offering = new Offering(params).save(flush: true)
             controller.update(offering)
 
         then:"A redirect is issues to the show action"
             //response.redirectedUrl == "/offering/show/$offering"
             flash.message != null
+			offering.amountCash == 250
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
@@ -189,4 +192,5 @@ class OfferingControllerSpec extends Specification {
 		flash.message == "No Offering was found. Try again."
 		
 	}
+	
 }

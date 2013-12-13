@@ -18,13 +18,19 @@ class TitheController {
     }
 
     def create() {
-        [titheInstance: new Tithe(params)]
+       render view: 'create'
     }
 
-    def save() {
-        def titheInstance = new Tithe(params)
+    def save(Tithe titheInstance) {
+		if(titheInstance.hasErrors()){
+			flash.message =='These errors occured while saving Tithe Information. Correct them and try again'
+			redirect(action: "create", model: [titheInstance: titheInstance])
+			return
+		}
+        
         if (!titheInstance.save(flush: true)) {
-            render(view: "create", model: [titheInstance: titheInstance])
+			flash.message =='These errors occured while saving Tithe Information. Correct them and try again'
+            redirect(action: "create", model: [titheInstance: titheInstance])
             return
         }
 
@@ -54,7 +60,7 @@ class TitheController {
         [titheInstance: titheInstance]
     }
 
-    def update(Long id, Long version) {
+    def update(Long id) {
         def titheInstance = Tithe.get(id)
         if (!titheInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tithe.label', default: 'Tithe'), id])
@@ -62,16 +68,7 @@ class TitheController {
             return
         }
 
-        if (version != null) {
-            if (titheInstance.version > version) {
-                titheInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'tithe.label', default: 'Tithe')] as Object[],
-                          "Another user has updated this Tithe while you were editing")
-                render(view: "edit", model: [titheInstance: titheInstance])
-                return
-            }
-        }
-
+        
         titheInstance.properties = params
 
         if (!titheInstance.save(flush: true)) {
